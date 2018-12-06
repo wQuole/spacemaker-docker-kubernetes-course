@@ -28,3 +28,19 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: validation-service
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /validation-service
+        backend:
+          serviceName: validation-service
+          servicePort: 8080
