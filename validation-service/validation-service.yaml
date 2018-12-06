@@ -1,0 +1,30 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: validation-service
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: validation-service
+  template:
+    metadata:
+      labels:
+        app: validation-service
+    spec:
+      containers:
+      - name: validation-service
+        image: hakonamdal/validation-service
+        ports:
+        - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: validation-service
+spec:
+  selector:
+    app: validation-service
+  ports:
+  - protocol: TCP
+    port: 8080
