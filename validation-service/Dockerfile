@@ -5,4 +5,4 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix \
 FROM scratch
 COPY --from=build /bin/validation-service /bin/validation-service
 EXPOSE 8080
-ENTRYPOINT ["/bin/validation-service"]
+ENTRYPOINT ["validation-service"]

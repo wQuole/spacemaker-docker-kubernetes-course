@@ -51,5 +51,5 @@ $ gcloud container clusters get-credentials abakus --zone europe-west1-b \
 Then apply the kubernetes configuration by running:
 
 ```bash
-$ kubectle apply -f validation-service.yaml
+$ kubectl apply -f validation-service.yaml
 ```
