@@ -12,6 +12,7 @@ terraform {
   backend "gcs" {
     bucket  = "main-europe-west1-terraform"
     project = "spacemaker-kubernetes-workshop"
+    prefix  = "spacemaker-docker-kubernetes-course"
   }
 }
 

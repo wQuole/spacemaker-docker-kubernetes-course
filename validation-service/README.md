@@ -1,5 +1,7 @@
 # Validation Service
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/spacemakerai/spacemaker-docker-kubernetes-course)](https://goreportcard.com/report/github.com/spacemakerai/spacemaker-docker-kubernetes-course)
+
 ## Hacking
 
 Run the server with the following command:
