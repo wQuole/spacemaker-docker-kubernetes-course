@@ -21,3 +21,18 @@ func GetPolygonFromJSON(s string) (*Polygon, error) {
 	}
 	return p, nil
 }
+
+// IsValid checks if a polygon is valid, and returns an error string in case it's invalid
+func IsValid(p *Polygon) (bool, string) {
+	x1 := p.X
+	x2 := x1 + p.Width
+	y1 := p.Y
+	y2 := y1 + p.Depth
+	if x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0 {
+		return false, "Polygon is outside bounds"
+	}
+	if x1 > 100 || x2 > 100 || y1 > 100 || y2 > 100 {
+		return false, "Polygon is outside bounds"
+	}
+	return true, ""
+}
