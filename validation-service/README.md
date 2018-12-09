@@ -7,10 +7,16 @@
 Run the server with the following command:
 
 ```bash
-$ go run main.go
+$ go run cmd/server/main.go
 ```
 
 Server now available at `http://localhost:8080/`.
+
+Run the tests with the following command:
+
+```bash
+$ go test ./...
+```
 
 ## Hacking with docker
 
