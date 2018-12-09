@@ -5,9 +5,14 @@ provider "google-beta" {
 }
 
 provider "aws" {
-  access_key = "${var.aws_access_key}"
-  secret_key = "${var.aws_secret_key}"
-  region     = "eu-west-1"
+  region = "eu-west-1"
+}
+
+terraform {
+  backend "gcs" {
+    bucket  = "main-europe-west1-terraform"
+    project = "spacemaker-kubernetes-workshop"
+  }
 }
 
 data "google_container_engine_versions" "region" {
