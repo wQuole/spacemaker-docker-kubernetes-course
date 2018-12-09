@@ -1,4 +1,6 @@
 FROM golang:1.11.2 AS build
+RUN mkdir /validation-service
+WORKDIR /validation-service
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix \
     cgo -o /bin/validation-service
