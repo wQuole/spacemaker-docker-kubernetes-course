@@ -7,10 +7,17 @@ function fetchMock() {
   ]);
 }
 
-function fetchService() {
-  return fetch("/api").then(r => r.json());
+function fetchService(name) {
+  let url = "/api";
+  if (name) {
+    url += "/" + name;
+  }
+
+  console.log(url);
+
+  return fetch(url).then(r => r.json());
 }
 
 export function service() {
-  return Promise.all([fetchService(), fetchService()]);
+  return Promise.all([fetchService("local"), fetchService("service")]);
 }
