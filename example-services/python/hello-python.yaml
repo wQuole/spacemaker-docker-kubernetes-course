@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: hello-python
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: hello-python
+  template:
+    metadata:
+      labels:
+        app: hello-python
+    spec:
+      containers:
+      - name: hello-python
+        image: hakonamdal/hello-python
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-python
+spec:
+  selector:
+    app: hello-python
+  ports:
+  - protocol: TCP
+    port: 8888
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-python
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /hello-python
+        backend:
+          serviceName: hello-python
+          servicePort: 8888
