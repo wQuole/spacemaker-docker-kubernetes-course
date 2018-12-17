@@ -31,8 +31,16 @@ custom:
     destinationARN: "arn:aws:lambda:eu-west-1:741408923162:function:spacemaker-infrastructure-prod-cloudwatch-to-fluentd"
 
 functions:
-  get-data-from-solutions:
-    handler: hanalysis_handler.handler
-    role: arn:aws:iam::741408923162:role/lambda-s3
-    timeout: 900
-    description: Creates a data zip on s3
+  analyse-solution-in-course:
+    handler: analysis_handler.handler
+    role: arn:aws:iam::741408923162:role/lambda_invoke_lambda
+    timeout: 30
+    description: Calculate score for proposal
+    events:
+    - http:
+        path: /analyse_solution_in_course
+        method: post
+        request:
+          parameters:
+            headers:
+              Authorization: false
