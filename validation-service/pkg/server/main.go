@@ -12,7 +12,7 @@ import (
 // StartServer starts the HTTP server at the specified port
 func StartServer(port int) {
 	http.HandleFunc("/", handleRoot)
-	http.HandleFunc("/validate-polygon", handleValidatePolygon)
+	http.HandleFunc("/validate-building", handleValidateBuilding)
 	log.Printf("Starting server at port %v...", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%v", port), nil))
 }
@@ -22,19 +22,19 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello word")
 }
 
-func handleValidatePolygon(w http.ResponseWriter, r *http.Request) {
+func handleValidateBuilding(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Received request %v...", r)
 	if r.Method != "POST" {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return
 	}
 	decoder := json.NewDecoder(r.Body)
-	var p model.Polygon
-	if err := decoder.Decode(&p); err != nil {
-		http.Error(w, "Could not deserialize polygon", http.StatusBadRequest)
+	var b model.Building
+	if err := decoder.Decode(&b); err != nil {
+		http.Error(w, "Could not deserialize building", http.StatusBadRequest)
 		return
 	}
-	isValid, errorMessage := model.IsValid(&p)
+	isValid, errorMessage := b.IsValid()
 	response := validatePolygonResponse{
 		IsValid:      isValid,
 		ErrorMessage: errorMessage,
