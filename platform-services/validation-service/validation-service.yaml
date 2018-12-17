@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: validation-service
-        image: hakonamdal/validation-service
+        image: hakonamdal/validation-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

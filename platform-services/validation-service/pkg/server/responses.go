@@ -1,6 +1,6 @@
 package server
 
-type validatePolygonResponse struct {
+type buildingValidationResult struct {
 	IsValid      bool   `json:"isValid"`
 	ErrorMessage string `json:"errorMessage"`
 }
