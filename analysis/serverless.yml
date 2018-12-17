@@ -1,0 +1,38 @@
+service: docker-kubernet-analysis
+
+provider:
+  name: aws
+  region: eu-west-1
+  stage: prod
+  versionFunctions: false
+  runtime: python3.6
+  deploymentBucket:
+    name: code-upload
+
+package:
+  exclude:
+  - node_modules/**
+  - .env/**
+  - .idea/**
+  - .pytest_cache/**
+  - yarn.lock
+  - rest.py
+plugins:
+- serverless-python-requirements
+- serverless-log-forwarding
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    slim: true
+    zip: true
+    fileName: requirements.txt
+  logForwarding:
+    destinationARN: "arn:aws:lambda:eu-west-1:741408923162:function:spacemaker-infrastructure-prod-cloudwatch-to-fluentd"
+
+functions:
+  get-data-from-solutions:
+    handler: hanalysis_handler.handler
+    role: arn:aws:iam::741408923162:role/lambda-s3
+    timeout: 900
+    description: Creates a data zip on s3
