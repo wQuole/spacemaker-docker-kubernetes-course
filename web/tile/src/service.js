@@ -1,9 +1,9 @@
 function fetchMock() {
   return Promise.resolve([
-    { x: 0, y: 0, width: 20, depth: 20, height: 20 },
-    { x: 80, y: 0, width: 20, depth: 20, height: 20 },
-    { x: 0, y: 30, width: 20, depth: 20, height: 20 },
-    { x: 80, y: 30, width: 20, depth: 20, height: 20 }
+    { x: 0, y: 0, dx: 20, dy: 20, dz: 20 },
+    { x: 80, y: 0, dx: 20, dy: 20, dz: 20 },
+    { x: 0, y: 30, dx: 20, dy: 20, dz: 20 },
+    { x: 80, y: 30, dx: 20, dy: 20, dz: 20 }
   ]);
 }
 

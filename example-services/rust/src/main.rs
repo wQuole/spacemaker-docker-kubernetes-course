@@ -14,18 +14,17 @@ extern crate serde_derive;
 struct Polygon {
     x: u8,
     y: u8,
-    width: u8,
-    depth: u8,
-    height: u8,
-    rotation: f64
+    dx: u8,
+    dy: u8,
+    dz: u8
 }
 
 fn main() {
 
 
     let polygons = vec![
-        Polygon { x: 0, y: 0, width: 20, depth: 20, height: 20, rotation: 0f64 },
-        Polygon { x: 40, y: 40, width: 20, depth: 20, height: 40, rotation: PI / 4.0 },
+        Polygon { x: 0, y: 0, dx: 20, dy: 20, dz: 20 },
+        Polygon { x: 40, y: 40, dx: 20, dy: 20, dz: 40 },
     ];
 
     let hello = move |_: &mut Request| {

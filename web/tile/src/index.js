@@ -59,28 +59,26 @@ function run() {
 
     for (let tile of tiles) {
       for (let building of tile) {
-        let { x, y, width, depth, height, rotation } = building;
+        let { x, y, dx, dy, dz } = building;
 
-        if (width < 0) width = 1;
-        if (depth < 0) depth = 1;
-        if (height < 0) height = 1;
-        if (width + x > tileSizeX) {
-          width = tileSizeX - x;
+        if (dx < 0) dx = 1;
+        if (dy < 0) dy = 1;
+        if (dz < 0) dx = 1;
+        if (dx + x > tileSizeX) {
+          dx = tileSizeX - x;
         }
-        if (depth + y > tileSizeY) {
-          depth = tileSizeY - y;
+        if (dy + y > tileSizeY) {
+          dy = tileSizeY - y;
         }
 
-        const geometry = new THREE.BoxBufferGeometry(width, depth, height);
+        const geometry = new THREE.BoxBufferGeometry(dx, dy, dz);
         const material = new THREE.MeshBasicMaterial({
           color: new THREE.Color(0xcccccc)
         });
         const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.x = tileX + (x % tileSizeX) + width / 2;
-        mesh.position.y = tileY + (y % tileSizeY) + depth / 2;
-        mesh.position.z = height / 2;
-
-        mesh.rotateOnAxis(new THREE.Vector3(0, 0, 1), rotation);
+        mesh.position.x = tileX + (x % tileSizeX) + dx / 2;
+        mesh.position.y = tileY + (y % tileSizeY) + dy / 2;
+        mesh.position.z = dz / 2;
 
         scene.add(mesh);
       }
