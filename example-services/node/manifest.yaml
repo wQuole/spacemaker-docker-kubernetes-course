@@ -22,9 +22,9 @@ spec:
           requests:
             cpu: 100m
             memory: 200Mi
-        image: DOCKERHUB_USERNAME/spacemaker-example-service-node
+        image: larseen/spacemaker-example-service-node
         ports:
-        - containerPort: 8000
+        - containerPort: 3000
 ---
 kind: Service
 apiVersion: v1
@@ -35,20 +35,4 @@ spec:
     app: spacemaker-example-service-node
   ports:
   - protocol: TCP
-    port: 8080
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: spacemaker-example-service-node
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /spacemaker-example-service-node
-        backend:
-          serviceName: spacemaker-example-service-node
-          servicePort: 8080
+    port: 3000
