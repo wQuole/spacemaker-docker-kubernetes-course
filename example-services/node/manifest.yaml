@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacemaker-example-service-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spacemaker-example-service-node
+  template:
+    metadata:
+      labels:
+        app: spacemaker-example-service-node
+    spec:
+      containers:
+      - name: spacemaker-example-service-node
+        resources:
+          limits:
+            cpu: 200m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        image: DOCKERHUB_USERNAME/spacemaker-example-service-node
+        ports:
+        - containerPort: 8000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spacemaker-example-service-node
+spec:
+  selector:
+    app: spacemaker-example-service-node
+  ports:
+  - protocol: TCP
+    port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spacemaker-example-service-node
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /spacemaker-example-service-node
+        backend:
+          serviceName: spacemaker-example-service-node
+          servicePort: 8080

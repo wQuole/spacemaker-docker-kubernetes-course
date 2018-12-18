@@ -1,0 +1,9 @@
+{
+  "name": "example-service-node",
+  "version": "1.0.0",
+  "description": "Example service node",
+  "main": "index.js",
+  "repository": "https://github.com/spacemakerai/spacemaker-docker-kubernetes-course",
+  "author": "Spacemaker <hello@spacemaker.ai>",
+  "license": "MIT"
+}

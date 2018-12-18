@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  web:
+    image: spacemaker-tile:latest
+    ports:
+      - "8080:80"
