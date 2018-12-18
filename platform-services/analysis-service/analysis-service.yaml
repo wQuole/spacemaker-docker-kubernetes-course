@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: analysis-service
+  namespace: kube-system
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: analysis-service
+  template:
+    metadata:
+      labels:
+        app: analysis-service
+    spec:
+      containers:
+      - name: analysis-service
+        resources:
+          limits:
+            cpu: 200m
+            memory: 300Mi
+          requests:
+            cpu: 150m
+            memory: 200Mi
+        image: larseen/analysis-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: analysis-service
+  namespace: kube-system
+spec:
+  selector:
+    app: analysis-service
+  ports:
+  - protocol: TCP
+    port: 8888
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: analysis-service
+  namespace: kube-system
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /analysis-service
+        backend:
+          serviceName: analysis-service
+          servicePort: 8888
