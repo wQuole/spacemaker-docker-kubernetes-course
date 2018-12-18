@@ -16,5 +16,5 @@ RUN cargo build --release
 
 FROM debian:jessie-slim
 COPY --from=build /spacemaker-course-example-rust/target/release/spacemaker-course-example-rust /bin/spacemaker-course-example-rust
-EXPOSE 8080
+EXPOSE 3003
 ENTRYPOINT ["spacemaker-course-example-rust"]

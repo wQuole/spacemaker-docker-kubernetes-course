@@ -36,5 +36,5 @@ fn main() {
     };
 
     let _server = Iron::new(hello).http("0.0.0.0:3003").unwrap();
-    println!("Running on 8080")
+    println!("Running on 3003")
 }
