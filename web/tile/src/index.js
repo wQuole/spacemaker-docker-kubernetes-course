@@ -9,7 +9,6 @@ let borderX = 10;
 let borderY = 10;
 
 let maxSizeX = 200;
-
 function run() {
   let renderer, camera, controls;
 
