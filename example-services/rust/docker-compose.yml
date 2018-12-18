@@ -5,4 +5,4 @@ services:
     ports:
       - "8080:80"
   service:
-    image: spacmaker-rust:latest
+    image: spacemaker-rust:latest
