@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 import log from "@spacemakerai/log";
 import app from "./app";
 import config from "./config";
