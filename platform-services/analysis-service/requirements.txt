@@ -1,2 +1,4 @@
 spacemakerlog3
+rasterio
+shapely
 

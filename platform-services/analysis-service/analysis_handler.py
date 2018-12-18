@@ -11,6 +11,7 @@ matplotlib.use("agg")
 import json
 from spacemakerlog3 import log
 from analysis_worker import worker
+import base64
 
 
 def cluster_handler(event, context):
@@ -21,14 +22,20 @@ def cluster_handler(event, context):
     :return: Score of the proposed solution
     """
 
-    buildings = event
     try:
-        if not buildings:
+        if not event:
             raise ValueError("no buildings present")
 
-        log.debug("start analysing", buildings=len(buildings))
+        log.debug("start analysing")
 
-        score = worker(buildings)
+        if "isBase64Encoded" in event and event["isBase64Encoded"]:
+            request_body = json.loads(base64.b64decode(event["body"]))
+        else:
+            request_body = json.loads(event["body"])
+
+        #score = worker(request_body)
+        score = 100
+        
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},

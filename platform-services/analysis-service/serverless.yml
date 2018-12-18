@@ -14,12 +14,13 @@ package:
   - node_modules/**
   - .env/**
   - .idea/**
+  - "**/__pycache__/**"
   - .pytest_cache/**
   - yarn.lock
   - rest.py
 plugins:
 - serverless-python-requirements
-- serverless-log-forwarding
+
 
 custom:
   pythonRequirements:
@@ -27,8 +28,6 @@ custom:
     slim: true
     zip: true
     fileName: requirements.txt
-  logForwarding:
-    destinationARN: "arn:aws:lambda:eu-west-1:741408923162:function:spacemaker-infrastructure-prod-cloudwatch-to-fluentd"
 
 functions:
   analyse-solution-in-course:

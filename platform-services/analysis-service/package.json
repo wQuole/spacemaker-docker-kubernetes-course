@@ -6,14 +6,11 @@
     "install:deps": "pip install -r requirements.txt",
     "build": "serverless package",
     "deploy": "serverless deploy --stage=prod",
-    "deploy:get-data-from-solutions": "serverless deploy --stage=prod function -f get-data-from-solutions",
-    "logs": "serverless logs -t -f get-data-from-solutions",
-    "test": "python -m pytest --capture=no --durations=0",
-    "start": "pip list | grep Flask || pip install -r requirements-dev.txt && FLASK_APP=rest.py FLASK_ENV=development flask run"
+    "deploy:get-data-from-solutions": "serverless deploy --stage=prod function -f analyse-solution-in-course",
+    "logs": "serverless logs -t -f analyse-solution-in-course"
   },
   "dependencies": {
     "serverless": "^1.32.0",
-    "serverless-python-requirements": "^4.1.1",
-    "serverless-log-forwarding": "^1.2.1"
+    "serverless-python-requirements": "^4.1.1"
   }
 }
