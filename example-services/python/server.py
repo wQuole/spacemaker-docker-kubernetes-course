@@ -6,19 +6,18 @@ import tornado.web
 PORT = 8888
 
 
-class HelloHandler(tornado.web.RequestHandler):
-    def post(self):
-        data = json.loads(self.request.body.decode('utf-8'))
-        message = "Hello, %s!" % data['name']
-        print(message)
-        self.write(json.dumps({
-            "greeting": message
-        }))
+class Handler(tornado.web.RequestHandler):
+    def get(self):
+        print("Request received")
+        self.write(json.dumps([
+            {"x": 0, "y": 0, "dx": 20, "dy": 20, "dz": 20}, {
+                "x": 40, "y": 40, "dx": 20, "dy": 20, "dz": 40}
+        ]))
 
 
 def make_app(autoreload):
     return tornado.web.Application([
-        (r"/hello", HelloHandler),
+        (r"/", Handler),
     ], autoreload=autoreload)
 
 
