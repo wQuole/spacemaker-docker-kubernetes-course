@@ -2,38 +2,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spacemaker-example-rust
+  name: spacemaker-rust
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spacemaker-example-rust
+      app: spacemaker-rust
   template:
     metadata:
       labels:
-        app: spacemaker-example-rust
+        app: spacemaker-rust
     spec:
       containers:
-      - name: spacemaker-example-rust
-        image: havardh/spacemaker-example-rust
+      - name: spacemaker-rust
+        image: havardh/spacemaker-rust
         ports:
-        - containerPort: 8080
+        - containerPort: 3003
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-example-rust
+  name: spacemaker-rust
 spec:
   selector:
-    app: spacemaker-example-rust
+    app: spacemaker-rust
   ports:
   - protocol: TCP
-    port: 8080
+    port: 3003
+  type: NodePort
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: spacemaker-example-rust
+  name: spacemaker-rust
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -41,7 +42,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /spacemaker-example-rust
+      - path: /spacemaker-rust
         backend:
-          serviceName: spacemaker-example-rust
-          servicePort: 8080
+          serviceName: spacemaker-rust
+          servicePort: 3003
