@@ -1,3 +1,8 @@
+const endpoints = {
+  all: "/services",
+  proxy: "/services/"
+};
+
 function fetchMock() {
   return Promise.resolve([
     { x: 0, y: 0, dx: 20, dy: 20, dz: 20 },
@@ -8,16 +13,14 @@ function fetchMock() {
 }
 
 function fetchService(name) {
-  let url = "/api";
-  if (name) {
-    url += "/" + name;
-  }
-
-  console.log(url);
-
+  const url = "/" + name;
   return fetch(url).then(r => r.json());
 }
 
-export function service() {
-  return Promise.all([fetchService("local"), fetchService("service")]);
+export async function getAllServices() {
+  return fetch(endpoints.all).then(r => r.json());
+}
+
+export async function getServiceResult(app) {
+  return fetch(endpoints.proxy + app).then(r => r.json());
 }

@@ -1,7 +1,7 @@
-import { service } from "./service";
+import { getAllServices, getServiceResult } from "./service";
 
 let scene,
-  tiles = [];
+  tiles = {};
 
 let tileSizeX = 100;
 let tileSizeY = 50;
@@ -9,11 +9,13 @@ let borderX = 10;
 let borderY = 10;
 
 let maxSizeX = 200;
+let update;
 function run() {
   let renderer, camera, controls;
 
   init();
   animate();
+  updateScene(tiles);
 
   function init() {
     camera = new THREE.PerspectiveCamera(
@@ -57,7 +59,7 @@ function run() {
     gridHelper.position.y = tileSizeX / 2;
     scene.add(gridHelper);
 
-    for (let tile of tiles) {
+    for (let [service, tile] of Object.entries(tiles)) {
       for (let building of tile) {
         let { x, y, dx, dy, dz } = building;
 
@@ -94,19 +96,30 @@ function run() {
   function animate() {
     requestAnimationFrame(animate);
 
-    updateScene(tiles);
     controls.update();
 
     renderer.render(scene, camera);
   }
+
+  update = updateScene;
 }
 
 run();
 
-function callService() {
-  service()
-    .then(data => (tiles = data))
-    .then(() => console.log("update"));
+async function callService() {
+  const services = await getAllServices();
+
+  for (let { name, app } of services) {
+    try {
+      const result = await getServiceResult(app);
+      tiles[name] = result;
+    } catch (e) {
+      delete tiles[name];
+      console.log({ name, e });
+    }
+  }
+
+  update(tiles);
 }
 callService();
 setTimeout(callService, 5000);
