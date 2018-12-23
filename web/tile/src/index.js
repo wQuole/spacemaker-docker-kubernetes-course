@@ -47,19 +47,20 @@ function run() {
     }
   }
 
-  function updateScene(tiles) {
-    let tileX = 0,
-      tileY = 0;
-
-    clearScene();
-
+  function createGrid() {
     const gridHelper = new THREE.GridHelper(tileSizeX, 40, 0x0000ff, 0x808080);
     gridHelper.geometry.rotateX(Math.PI / 2);
     gridHelper.position.x = tileSizeX / 2;
     gridHelper.position.y = tileSizeX / 2;
-    scene.add(gridHelper);
+    return gridHelper;
+  }
 
+  function createTiles(tiles) {
+    let tileX = 0,
+      tileY = 0;
+    const city = new THREE.Group();
     for (let [service, tile] of Object.entries(tiles)) {
+      const block = new THREE.Group();
       for (let building of tile) {
         let { x, y, dx, dy, dz } = building;
 
@@ -82,7 +83,7 @@ function run() {
         mesh.position.y = tileY + (y % tileSizeY) + dy / 2;
         mesh.position.z = dz / 2;
 
-        scene.add(mesh);
+        block.add(mesh);
       }
 
       tileX += tileSizeX + borderX;
@@ -90,7 +91,18 @@ function run() {
         tileX = 0;
         tileY += tileSizeY + borderY;
       }
+
+      city.add(block);
     }
+
+    return city;
+  }
+
+  function updateScene(tiles) {
+    clearScene();
+
+    scene.add(createGrid());
+    scene.add(createTiles(tiles));
   }
 
   function animate() {
