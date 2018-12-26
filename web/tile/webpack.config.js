@@ -7,6 +7,10 @@ module.exports = {
       "/services/*": {
         target: "http://abakus.spacemaker.ai",
         changeOrigin: true
+      },
+      "/validation-service": {
+        target: "http://abakus.spacemaker.ai",
+        changeOrigin: true
       }
     }
   }
