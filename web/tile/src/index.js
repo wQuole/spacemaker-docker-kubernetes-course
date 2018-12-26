@@ -35,6 +35,8 @@ function run() {
 
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -55,16 +57,6 @@ function run() {
     return gridHelper;
   }
 
-  function computeBlockPosition({ tileX, tileY }) {
-    let nextTileX = tileX + tileSizeX + borderX;
-    let nextTileY = tileY;
-    if (nextTileX + tileSizeX > maxSizeX) {
-      nextTileX = 0;
-      nextTileY = tileY + tileSizeY + borderY;
-    }
-    return { nextTileX, nextTileY };
-  }
-
   function createBuilding({ x, y, dx, dy, dz }) {
     if (dx < 0) dx = 1;
     if (dy < 0) dy = 1;
@@ -77,15 +69,40 @@ function run() {
     }
 
     const geometry = new THREE.BoxBufferGeometry(dx, dy, dz);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshLambertMaterial({
       color: new THREE.Color(0xcccccc)
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.x = x + dx / 2;
     mesh.position.y = y + dy / 2;
     mesh.position.z = dz / 2;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
     return mesh;
+  }
+
+  function createGround(width, height) {
+    const texture = new THREE.TextureLoader().load("assets/tarmac.jpg");
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(4, 4);
+
+    const material = new THREE.MeshLambertMaterial({
+      // map: texture,
+      color: new THREE.Color(0xcccccc),
+      side: THREE.DoubleSide
+    });
+
+    const plane = new THREE.Mesh(
+      new THREE.PlaneGeometry(width, height),
+      material
+    );
+    plane.position.x = width / 2;
+    plane.position.y = height / 2;
+    plane.receiveShadow = true;
+
+    return plane;
   }
 
   function createTiles(tiles) {
@@ -98,26 +115,55 @@ function run() {
       block.position.x = tileX;
       block.position.y = tileY;
       block.position.z = 0;
+      block.castShadow = true;
+      block.receiveShadow = true;
 
+      block.add(createGround(tileSizeX, tileSizeY));
       for (let building of tile) {
-        console.log({ tileX, tileY });
         block.add(createBuilding(building));
       }
 
-      let { nextTileX, nextTileY } = computeBlockPosition({ tileX, tileY });
-      tileX = nextTileX;
-      tileY = nextTileY;
+      tileX = tileX + tileSizeX + borderX;
+      if (tileX + tileSizeX > maxSizeX) {
+        tileX = 0;
+        tileY = tileY + tileSizeY + borderY;
+      }
 
       city.add(block);
     }
 
+    city.castShadow = true;
+    city.receiveShadow = true;
+
     return city;
+  }
+
+  function createSun() {
+    //Create a PointLight and turn on shadows for the light
+    var light = new THREE.DirectionalLight(0xffffff, 0.5);
+    light.position.set(100, 200, 100);
+    light.castShadow = true;
+
+    //Set up shadow properties for the light
+    light.shadow.mapSize.width = 512;
+    light.shadow.mapSize.height = 512;
+    light.shadow.camera.near = 0.5;
+    light.shadow.camera.far = 500;
+
+    light.shadow.camera.left = -500;
+    light.shadow.camera.bottom = -500;
+    light.shadow.camera.right = 500;
+    light.shadow.camera.top = 500;
+    return light;
   }
 
   function updateScene(tiles) {
     clearScene();
 
-    scene.add(createGrid());
+    // scene.add(createGrid());
+    const sun = createSun();
+    scene.add(sun);
+    // scene.add(new THREE.CameraHelper(sun.shadow.camera));
     scene.add(createTiles(tiles));
   }
 
