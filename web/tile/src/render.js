@@ -17,9 +17,7 @@ export function update(tiles) {
   clearScene();
 
   // scene.add(createGrid());
-  const sun = createSun();
-  scene.add(sun);
-  // scene.add(new THREE.CameraHelper(sun.shadow.camera));
+  scene.add(createSun());
   scene.add(createTiles(tiles));
 }
 
@@ -96,7 +94,7 @@ function createGround(width, height) {
 
   const material = new THREE.MeshLambertMaterial({
     // map: texture,
-    color: new THREE.Color(0xcccccc),
+    color: new THREE.Color(0x2a603b),
     side: THREE.DoubleSide
   });
 
@@ -146,6 +144,7 @@ function createTiles(tiles) {
 
 function createSun() {
   //Create a PointLight and turn on shadows for the light
+  const ambient = new THREE.AmbientLight(0xf0f0f0, 0.55);
   var light = new THREE.DirectionalLight(0xffffff, 0.5);
   light.position.set(100, 200, 100);
   light.castShadow = true;
@@ -160,7 +159,12 @@ function createSun() {
   light.shadow.camera.bottom = -500;
   light.shadow.camera.right = 500;
   light.shadow.camera.top = 500;
-  return light;
+
+  const group = new THREE.Group();
+  group.add(light);
+  group.add(ambient);
+  // group.add(new THREE.CameraHelper(light.shadow.camera));
+  return group;
 }
 
 function animate() {
