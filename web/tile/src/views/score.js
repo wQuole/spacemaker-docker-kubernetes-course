@@ -5,7 +5,6 @@ function renderBlock([name, score]) {
 }
 
 export function render(scores) {
-  console.log(el);
   el.innerHTML = `
     <span>Score:</span>
     <ul>

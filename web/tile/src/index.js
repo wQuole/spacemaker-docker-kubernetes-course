@@ -1,19 +1,56 @@
 import { getAllServices, getServiceResult } from "./services/services";
 import { validate, isValid } from "./services/validation";
 import { analyse } from "./services/analysis";
-import { run, update } from "./render";
+import { run, update as update3D } from "./render";
 import { render as renderError } from "./views/errors";
 import { render as renderScore } from "./views/score";
 
 const state = {
+  filter: null,
   tiles: {},
   analysis: {},
   invalids: {},
-  errors: {}
+  errors: {},
+
+  getTiles() {
+    return this.filterObject(this.tiles);
+  },
+
+  getAnalysis() {
+    return this.filterObject(this.analysis);
+  },
+
+  getInvalids() {
+    return this.filterObject(this.invalids);
+  },
+
+  getErrors() {
+    return this.filterObject(this.errors);
+  },
+
+  filterObject(object) {
+    if (this.filter) {
+      return Object.entries(object)
+        .filter(([name]) => name === this.filter)
+        .reduce((acc, [name, value]) => ({ ...acc, [name]: value }), {});
+    } else {
+      return object;
+    }
+  }
 };
 
 function apply(change) {
   switch (change.type) {
+    case "filter/set": {
+      const { name } = change;
+      state.filter = name;
+      break;
+    }
+    case "filter/clear": {
+      state.filter = null;
+      break;
+    }
+
     case "result": {
       const { name, block } = change;
       delete state.analysis[name];
@@ -53,6 +90,27 @@ function apply(change) {
 
 run(state.tiles);
 
+function updateHash() {
+  const { hash } = document.location;
+
+  const name = hash.replace(/#?\/?/, "");
+
+  if (name) {
+    apply({ type: "filter/set", name });
+  } else {
+    apply({ type: "filter/clear" });
+  }
+  update();
+}
+
+function update() {
+  update3D(state.getTiles());
+  renderScore(state.getAnalysis());
+  renderError(state.getInvalids(), state.getErrors());
+}
+
+window.addEventListener("hashchange", updateHash, false);
+
 async function callService() {
   const services = await getAllServices();
 
@@ -73,10 +131,8 @@ async function callService() {
     }
   }
 
-  update(state.tiles);
-  renderScore(state.analysis);
-  renderError(state.invalids, state.errors);
+  update();
   setTimeout(callService, 5000);
-  console.log(state);
 }
 callService();
+updateHash();
