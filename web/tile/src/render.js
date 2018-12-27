@@ -1,9 +1,11 @@
+import TWEEN from "@tweenjs/tween.js";
+
 const tileSizeX = 100;
 const tileSizeY = 50;
 const borderX = 10;
 const borderY = 10;
 
-const maxSizeX = 200;
+const maxSizeY = 300;
 
 let scene, renderer, camera, controls;
 
@@ -16,9 +18,10 @@ export function run(tiles) {
 export function update(tiles) {
   clearScene();
 
-  // scene.add(createGrid());
   scene.add(createSun());
   scene.add(createTiles(tiles));
+
+  moveCamera(tiles, camera, controls);
 }
 
 function init() {
@@ -28,11 +31,10 @@ function init() {
     1,
     10000
   );
-  camera.position.z = 400;
-  camera.position.x = 600;
-  camera.position.y = 600;
+  camera.position.x = 200;
+  camera.position.y = 35;
+  camera.position.z = 100;
   camera.up = new THREE.Vector3(0, 0, 1);
-  camera.lookAt(new THREE.Vector3(0, 0, 0));
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xffffff);
@@ -45,6 +47,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   controls = new THREE.OrbitControls(camera);
+  controls.target = new THREE.Vector3(0, 35, 0);
 }
 
 function clearScene() {
@@ -93,7 +96,7 @@ function createGround(width, height) {
   texture.repeat.set(4, 4);
 
   const material = new THREE.MeshLambertMaterial({
-    // map: texture,
+    //map: texture,
     color: new THREE.Color(0x2a603b),
     side: THREE.DoubleSide
   });
@@ -127,10 +130,11 @@ function createTiles(tiles) {
       block.add(createBuilding(building));
     }
 
-    tileX = tileX + tileSizeX + borderX;
-    if (tileX + tileSizeX > maxSizeX) {
-      tileX = 0;
-      tileY = tileY + tileSizeY + borderY;
+    tileY = tileY + tileSizeY + borderY;
+
+    if (tileY + tileSizeY > maxSizeY) {
+      tileY = 0;
+      tileX = tileX + tileSizeX + borderX;
     }
 
     city.add(block);
@@ -171,6 +175,48 @@ function animate() {
   requestAnimationFrame(animate);
 
   controls.update();
+  TWEEN.update();
 
   renderer.render(scene, camera);
+}
+
+function moveCamera(tiles, camera, controls) {
+  const cols = Math.min(
+    Math.floor(maxSizeY / (tileSizeY + borderY)),
+    Object.entries(tiles).length
+  );
+  const rows = Math.max(Math.ceil(Object.entries(tiles).length / cols), 1) || 0;
+
+  console.log({ cols, rows });
+  const x = (1 + rows) * (tileSizeX + borderX);
+  const y = ((tileSizeY + borderY) * (cols - 1) + tileSizeY) / 2;
+  const z = 100 + (rows - 1) * 50;
+  console.log({ x, y, z });
+  const position = new THREE.Vector3(x, y, z);
+  const target = new THREE.Vector3((rows / 2) * (tileSizeX + borderX), y, 0);
+
+  new TWEEN.Tween(camera.position)
+    .to(
+      {
+        x: position.x,
+        y: position.y,
+        z: position.z
+      },
+      600
+    )
+    .easing(TWEEN.Easing.Sinusoidal.InOut)
+    .start();
+  new TWEEN.Tween(controls.target)
+    .to(
+      {
+        x: target.x,
+        y: target.y,
+        z: target.z
+      },
+      600
+    )
+    .easing(TWEEN.Easing.Sinusoidal.InOut)
+    .start();
+
+  camera.updateWorldMatrix();
 }
