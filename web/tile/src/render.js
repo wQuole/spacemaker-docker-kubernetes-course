@@ -1,7 +1,3 @@
-import { getAllServices, getServiceResult } from "./services";
-import { validate, isValid } from "./validation";
-import { analyse } from "./analysis";
-
 const tileSizeX = 100;
 const tileSizeY = 50;
 const borderX = 10;

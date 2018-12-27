@@ -14,13 +14,36 @@
         top: 0;
         left: 0;
       }
+
+      #score {
+        padding: 5px;
+        position: fixed;
+        top: 20px;
+        left: 5px;
+        height: 100%;
+        width: 200px;
+        background-color: #EEE;
+      }
+
+      #failed {
+        padding: 5px;
+        position: fixed;
+        top: 20px;
+        right: 5px;
+        height: 100%;
+        width: 200px;
+        background-color: #EEE;
+      }
 		</style>
   </head>
 
   <body>
+    <div id="score">Score:</div>
+    <div id="failed">Failed:</div>
+
     <div id="local-service-wrapper">
-    <input id="local-service" type="checkbox">Use local?</input>
-  </div>
+      <input id="local-service" type="checkbox">Use local?</input>
+    </div>
     <script src="three.min.js"/></script>
     <script src="OrbitControls.js"></script>
     <script type="text/javascript" src="main.js"></script>
