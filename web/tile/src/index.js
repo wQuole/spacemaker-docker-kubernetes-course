@@ -4,91 +4,7 @@ import { analyse } from "./services/analysis";
 import { run, update as update3D } from "./render";
 import { render as renderError } from "./views/errors";
 import { render as renderScore } from "./views/score";
-
-const state = {
-  filter: null,
-  tiles: {},
-  analysis: {},
-  invalids: {},
-  errors: {},
-
-  getTiles() {
-    return this.filterObject(this.tiles);
-  },
-
-  getAnalysis() {
-    return this.filterObject(this.analysis);
-  },
-
-  getInvalids() {
-    return this.filterObject(this.invalids);
-  },
-
-  getErrors() {
-    return this.filterObject(this.errors);
-  },
-
-  filterObject(object) {
-    if (this.filter) {
-      return Object.entries(object)
-        .filter(([name]) => name === this.filter)
-        .reduce((acc, [name, value]) => ({ ...acc, [name]: value }), {});
-    } else {
-      return object;
-    }
-  }
-};
-
-function apply(change) {
-  switch (change.type) {
-    case "filter/set": {
-      const { name } = change;
-      state.filter = name;
-      break;
-    }
-    case "filter/clear": {
-      state.filter = null;
-      break;
-    }
-
-    case "result": {
-      const { name, block } = change;
-      delete state.analysis[name];
-      delete state.invalids[name];
-      delete state.errors[name];
-      state.tiles[name] = block;
-      break;
-    }
-
-    case "analyse": {
-      const { name, score } = change;
-      delete state.invalids[name];
-      delete state.errors[name];
-      state.analysis[name] = score;
-      break;
-    }
-
-    case "invalid": {
-      const { name, validation } = change;
-      delete state.analysis[name];
-      delete state.tiles[name];
-      delete state.errors[name];
-      state.invalids[name] = validation;
-      break;
-    }
-
-    case "error": {
-      const { name, error } = change;
-      delete state.analysis[name];
-      delete state.tiles[name];
-      delete state.invalids[name];
-      state.errors[name] = error;
-      break;
-    }
-  }
-}
-
-run(state.tiles);
+import { state, apply } from "./store";
 
 function updateHash() {
   const { hash } = document.location;
@@ -132,7 +48,9 @@ async function callService() {
   }
 
   update();
-  setTimeout(callService, 5000);
+  setTimeout(callService, 1000);
 }
+
+run(state.getTiles());
 callService();
 updateHash();
