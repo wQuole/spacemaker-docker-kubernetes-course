@@ -12,14 +12,15 @@
       #local-service-wrapper {
         position: fixed;
         top: 0;
-        left: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
       }
 
       #score {
         padding: 5px;
         position: fixed;
-        top: 20px;
-        left: 5px;
+        top: 0px;
+        left: 0px;
         height: 100%;
         width: 200px;
         background-color: #EEE;
@@ -28,8 +29,8 @@
       #failed {
         padding: 5px;
         position: fixed;
-        top: 20px;
-        right: 5px;
+        top: 0px;
+        right: 0px;
         height: 100%;
         width: 200px;
         background-color: #EEE;
@@ -42,7 +43,7 @@
     <div id="failed">Failed:</div>
 
     <div id="local-service-wrapper">
-      <input id="local-service" type="checkbox">Use local?</input>
+      <input id="local-service" type="checkbox">Use localhost</input>
     </div>
     <script src="three.min.js"/></script>
     <script src="OrbitControls.js"></script>
