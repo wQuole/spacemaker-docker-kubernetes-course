@@ -89,27 +89,48 @@ function createBuilding({ x, y, dx, dy, dz }) {
   return mesh;
 }
 
-function createGround(width, height) {
-  const texture = new THREE.TextureLoader().load("assets/tarmac.jpg");
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(4, 4);
-
-  const material = new THREE.MeshLambertMaterial({
-    //map: texture,
-    color: new THREE.Color(0x2a603b),
-    side: THREE.DoubleSide
-  });
-
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(width, height),
-    material
+function createGround(width, height, borderWidth, borderHeight) {
+  const loader = new THREE.TextureLoader();
+  const northTarmac = new THREE.Mesh(
+    new THREE.PlaneGeometry(borderWidth, borderHeight + height),
+    new THREE.MeshLambertMaterial({
+      map: loader.load("assets/tarmac.jpg"),
+      color: 0xffffff,
+      side: THREE.DoubleSide
+    })
   );
-  plane.position.x = width / 2;
-  plane.position.y = height / 2;
-  plane.receiveShadow = true;
+  northTarmac.position.x = width + borderWidth / 2;
+  northTarmac.position.y = (height + borderHeight) / 2;
+  northTarmac.receiveShadow = true;
 
-  return plane;
+  const vestTarmac = new THREE.Mesh(
+    new THREE.PlaneGeometry(width, borderHeight),
+    new THREE.MeshLambertMaterial({
+      map: loader.load("assets/tarmac.jpg"),
+      color: 0xffffff,
+      side: THREE.DoubleSide
+    })
+  );
+  vestTarmac.position.x = width / 2;
+  vestTarmac.position.y = height + borderHeight / 2;
+  vestTarmac.receiveShadow = true;
+
+  const block = new THREE.Mesh(
+    new THREE.PlaneGeometry(width, height),
+    new THREE.MeshLambertMaterial({
+      color: new THREE.Color(0x2a603b),
+      side: THREE.DoubleSide
+    })
+  );
+  block.position.x = width / 2;
+  block.position.y = height / 2;
+  block.receiveShadow = true;
+
+  const group = new THREE.Group();
+  group.add(block);
+  group.add(northTarmac);
+  group.add(vestTarmac);
+  return group;
 }
 
 function createTiles(tiles) {
@@ -125,7 +146,7 @@ function createTiles(tiles) {
     block.castShadow = true;
     block.receiveShadow = true;
 
-    block.add(createGround(tileSizeX, tileSizeY));
+    block.add(createGround(tileSizeX, tileSizeY, borderX, borderY));
     for (let building of tile) {
       block.add(createBuilding(building));
     }
