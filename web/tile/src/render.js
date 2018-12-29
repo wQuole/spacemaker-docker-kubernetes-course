@@ -213,11 +213,9 @@ function moveCamera(tiles, camera, controls) {
   );
   const rows = Math.max(Math.ceil(Object.entries(tiles).length / cols), 1) || 0;
 
-  console.log({ cols, rows });
   const x = (1 + rows) * (tileSizeX + borderX);
   const y = ((tileSizeY + borderY) * (cols - 1) + tileSizeY) / 2;
   const z = 100 + (rows - 1) * 50;
-  console.log({ x, y, z });
   const position = new THREE.Vector3(x, y, z);
   const target = new THREE.Vector3((rows / 2) * (tileSizeX + borderX), y, 0);
 

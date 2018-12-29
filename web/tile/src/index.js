@@ -42,8 +42,8 @@ async function callService() {
       } else {
         apply({ type: "invalid", name, validation });
       }
-    } catch (e) {
-      apply({ type: "error", name, e });
+    } catch (error) {
+      apply({ type: "error", name, error });
     }
   }
 

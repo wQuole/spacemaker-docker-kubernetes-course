@@ -1,6 +1,7 @@
 export async function validate(block) {
   return {
     isValid: Math.random() > 0.5, //true,
+    errorMessage: "random failure",
     validationResults: [{}, {}, {}]
   };
 
