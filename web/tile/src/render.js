@@ -10,7 +10,7 @@ const maxSizeY = 300;
 let scene, renderer, camera, controls;
 const textureLoader = new THREE.TextureLoader();
 const assets = {
-  tarmac: textureLoader.load("assets/tarmac.jpg"),
+  tarmac: textureLoader.load("assets/tarmac.jpg")
 };
 
 export function run(tiles) {
@@ -52,6 +52,8 @@ function init() {
   document.body.appendChild(renderer.domElement);
   controls = new THREE.OrbitControls(camera);
   controls.target = new THREE.Vector3(0, 35, 0);
+
+  window.addEventListener("resize", onWindowResize, false);
 }
 
 function clearScene() {
@@ -243,4 +245,10 @@ function moveCamera(tiles, camera, controls) {
     .start();
 
   camera.updateWorldMatrix();
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
