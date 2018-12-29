@@ -8,6 +8,10 @@ const borderY = 10;
 const maxSizeY = 300;
 
 let scene, renderer, camera, controls;
+const textureLoader = new THREE.TextureLoader();
+const assets = {
+  tarmac: textureLoader.load("assets/tarmac.jpg"),
+};
 
 export function run(tiles) {
   init();
@@ -90,11 +94,10 @@ function createBuilding({ x, y, dx, dy, dz }) {
 }
 
 function createGround(width, height, borderWidth, borderHeight) {
-  const loader = new THREE.TextureLoader();
   const northTarmac = new THREE.Mesh(
     new THREE.PlaneGeometry(borderWidth, borderHeight + height),
     new THREE.MeshLambertMaterial({
-      map: loader.load("assets/tarmac.jpg"),
+      map: assets.tarmac,
       color: 0xffffff,
       side: THREE.DoubleSide
     })
@@ -106,7 +109,7 @@ function createGround(width, height, borderWidth, borderHeight) {
   const vestTarmac = new THREE.Mesh(
     new THREE.PlaneGeometry(width, borderHeight),
     new THREE.MeshLambertMaterial({
-      map: loader.load("assets/tarmac.jpg"),
+      map: assets.tarmac,
       color: 0xffffff,
       side: THREE.DoubleSide
     })
