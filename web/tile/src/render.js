@@ -138,11 +138,14 @@ function createGround(width, height, borderWidth, borderHeight) {
   return group;
 }
 
+const sortedEntries = tiles =>
+  Object.entries(tiles).sort(([a], [b]) => a.localeCompare(b));
+
 function createTiles(tiles) {
   let tileX = 0,
     tileY = 0;
   const city = new THREE.Group();
-  for (let [service, tile] of Object.entries(tiles)) {
+  for (let [service, tile] of sortedEntries(tiles)) {
     const block = new THREE.Group();
 
     block.position.x = tileX;

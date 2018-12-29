@@ -1,5 +1,6 @@
 const el = document.getElementById("failed");
-
+const sortedEntries = tiles =>
+  Object.entries(tiles).sort(([a], [b]) => a.localeCompare(b));
 const css = o =>
   Object.entries(o)
     .map(([key, value]) => `style="${key}:${value}"`)
@@ -23,13 +24,13 @@ export function render(invalids, errors) {
   el.innerHTML = `
     <span>Invalid:</span>
     <ul>
-      ${Object.entries(invalids)
+      ${sortedEntries(invalids)
         .map(renderInvalid)
         .join("")}
     </ul>
     <span>Error:</span>
     <ul>
-      ${Object.entries(errors)
+      ${sortedEntries(errors)
         .map(renderError)
         .join("")}
     </ul>
