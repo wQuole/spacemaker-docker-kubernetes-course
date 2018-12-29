@@ -210,11 +210,10 @@ function animate() {
 }
 
 function moveCamera(tiles, camera, controls) {
-  const cols = Math.min(
-    Math.floor(maxSizeY / (tileSizeY + borderY)),
-    Object.entries(tiles).length
-  );
-  const rows = Math.max(Math.ceil(Object.entries(tiles).length / cols), 1) || 0;
+  const n = Math.max(Object.entries(tiles).length, 1);
+
+  const cols = Math.min(Math.floor(maxSizeY / (tileSizeY + borderY)), n);
+  const rows = Math.max(Math.ceil(n / cols), 1) || 0;
 
   const x = (1 + rows) * (tileSizeX + borderX);
   const y = ((tileSizeY + borderY) * (cols - 1) + tileSizeY) / 2;
