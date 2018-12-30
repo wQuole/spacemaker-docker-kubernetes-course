@@ -3,5 +3,10 @@ export async function getAllServices() {
 }
 
 export async function getServiceResult(app) {
-  return fetch("/service").then(r => r.json());
+  const response = await fetch("/service");
+  if (response.status === 200) {
+    return response.json();
+  } else {
+    throw response;
+  }
 }

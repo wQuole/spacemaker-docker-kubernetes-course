@@ -4,6 +4,7 @@ export const state = {
   analysis: {},
   invalids: {},
   errors: {},
+  localServiceMessage: null,
 
   getTiles() {
     return this.filterObject(this.tiles);
@@ -19,6 +20,12 @@ export const state = {
 
   getErrors() {
     return this.filterObject(this.errors);
+  },
+
+  getLocalServiceMessage(localmode) {
+    if (this.localServiceMessage) {
+      return this.localServiceMessage(localmode);
+    }
   },
 
   filterObject(object) {
@@ -41,6 +48,15 @@ export function apply(change) {
     }
     case "filter/clear": {
       state.filter = null;
+      break;
+    }
+    case "local-service/not-found": {
+      state.localServiceMessage = ({ port }) =>
+        `Could not find a service on http://localhost:${port}.`;
+      break;
+    }
+    case "local-service/clear": {
+      state.localServiceMessage = null;
       break;
     }
 

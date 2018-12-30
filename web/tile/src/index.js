@@ -6,6 +6,7 @@ import { analyse } from "./services/analysis";
 import { run, update as update3D } from "./render";
 import { render as renderError } from "./views/errors";
 import { render as renderScore } from "./views/score";
+import { render as renderLocalServiceModal } from "./views/localservice";
 import { state, apply } from "./store";
 
 function updateHash() {
@@ -25,11 +26,15 @@ function update() {
   update3D(state.getTiles());
   renderScore(state.getAnalysis());
   renderError(state.getInvalids(), state.getErrors());
+  renderLocalServiceModal(state.getLocalServiceMessage(window.localmode));
 }
 
 window.addEventListener("hashchange", updateHash, false);
 
 async function callService() {
+  if (window.localmode) {
+    apply({ type: "local-service/clear" });
+  }
   const service = window.localmode ? local : services;
 
   for (let { name, app } of await service.getAllServices()) {
@@ -45,12 +50,16 @@ async function callService() {
         apply({ type: "invalid", name, validation });
       }
     } catch (error) {
-      apply({ type: "error", name, error });
+      if (window.localmode && (error.status === 404 || error.status === 502)) {
+        apply({ type: "local-service/not-found" });
+      } else {
+        apply({ type: "error", name, error });
+      }
     }
   }
 
   update();
-  setTimeout(callService, 1000);
+  setTimeout(callService, 5000);
 }
 
 function setLocalMessage(isLocal) {

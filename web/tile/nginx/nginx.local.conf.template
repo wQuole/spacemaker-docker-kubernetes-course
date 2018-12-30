@@ -11,7 +11,7 @@ server {
     try_files $uri $uri/ =404;
 
     sub_filter </head>
-        '</head><script>window.localmode = true; </script>';
+        '</head><script>window.localmode = { port: ${LOCAL_PORT} }; </script>';
     sub_filter_once on;
   }
 
