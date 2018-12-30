@@ -9,11 +9,12 @@
 				overflow: hidden;
 			}
 
-      #local-service-wrapper {
+      #local-service {
         position: fixed;
         top: 0;
         left: 50%;
         transform: translate(-50%, 0);
+        visibility: hidden
       }
 
       #score {
@@ -35,6 +36,9 @@
         width: 300px;
         background-color: #EEE;
       }
+
+      #local-service {
+      }
 		</style>
   </head>
 
@@ -42,9 +46,7 @@
     <div id="score">Score:</div>
     <div id="failed">Failed:</div>
 
-    <div id="local-service-wrapper">
-      <input id="local-service" type="checkbox">Use localhost</input>
-    </div>
+    <div id="local-service">Using localhost</div>
     <script src="three.min.js"/></script>
     <script src="OrbitControls.js"></script>
     <script type="text/javascript" src="main.js"></script>

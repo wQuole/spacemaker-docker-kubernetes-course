@@ -1,4 +1,6 @@
-import { getAllServices, getServiceResult } from "./services/services";
+import * as services from "./services/services";
+import * as local from "./services/local";
+
 import { validate, isValid } from "./services/validation";
 import { analyse } from "./services/analysis";
 import { run, update as update3D } from "./render";
@@ -28,11 +30,11 @@ function update() {
 window.addEventListener("hashchange", updateHash, false);
 
 async function callService() {
-  const services = await getAllServices();
+  const service = window.localmode ? local : services;
 
-  for (let { name, app } of services) {
+  for (let { name, app } of await service.getAllServices()) {
     try {
-      const block = await getServiceResult(app);
+      const block = await service.getServiceResult(app);
 
       const validation = await validate(block);
       if (isValid(validation)) {
@@ -51,6 +53,14 @@ async function callService() {
   setTimeout(callService, 1000);
 }
 
+function setLocalMessage(isLocal) {
+  if (isLocal) {
+    const div = document.getElementById("local-service");
+    div.style.visibility = "visible";
+  }
+}
+
 run(state.getTiles());
 callService();
 updateHash();
+setLocalMessage(window.localmode);
