@@ -59,7 +59,7 @@ async function callService() {
   }
 
   update();
-  setTimeout(callService, 5000);
+  // setTimeout(callService, 5000);
 }
 
 function setLocalMessage(isLocal) {
