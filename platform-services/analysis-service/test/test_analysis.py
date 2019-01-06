@@ -1,4 +1,4 @@
-from analysis_worker import worker
+from worker import calculate_score
 
 input_dict = {"buildings":
     [
@@ -16,6 +16,6 @@ input_dict = {"buildings":
 }
 
 def test_worker():
-    print(worker(input_dict["buildings"]))
+    print(calculate_score(input_dict["buildings"]))
 
 test_worker()
