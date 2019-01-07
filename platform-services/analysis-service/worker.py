@@ -35,15 +35,6 @@ def _create_buildings(solution):
     return [Building(building) for building in solution]
 
 
-# TODO Check if overlap is part of validation
-def _calculate_total_overlap(buildings):
-    pass
-
-
-def _calculate_total_barrier_breach(buildings):
-    pass
-
-
 def _calculate_total_footprint(buildings):
     return sum(list(map(lambda building: building.area, buildings)))
 
@@ -90,7 +81,5 @@ def _calculate_score(buildings, buildings_raster):
 def calculate_score(solution):
     buildings = _create_buildings(solution)
     building_raster = rasterize.get_site_rasterized(buildings, SITE_DIM)
-
-    # TODO: Remove score for overlap / outside boundary.
 
     return _calculate_score(buildings, building_raster)
