@@ -50,3 +50,14 @@ func (b *Building) IsValid() (bool, string) {
 	}
 	return true, ""
 }
+
+// Overlaps return a boolean whether one building overlaps another
+func (b *Building) Overlaps(b1 *Building) bool {
+	if b.X > b1.X+b1.Dx || b.X+b.Dx < b1.X {
+		return false
+	}
+	if b.Y > b1.Y+b1.Dy || b.Y+b.Dy < b1.Y {
+		return false
+	}
+	return true
+}

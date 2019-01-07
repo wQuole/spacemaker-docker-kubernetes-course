@@ -6,8 +6,10 @@ from spacemakerlog3 import log
 SHAPELY_AREA_LOWER_LIMIT = 1e-7
 NUMERICAL_PRECISION_DISTANCES = 1e-8
 
+
 def calculate_polygon_from_solution_structure(solution):
     pass
+
 
 def calculate_site_area():
     pass
@@ -16,8 +18,10 @@ def calculate_site_area():
 def calculate_site_areal():
     pass
 
+
 def calculate_building_areal(building, FLOOR_HEIGHT):
     pass
+
 
 # Calculate all areas
 def simple_polygon_area(corners):
@@ -30,6 +34,7 @@ def simple_polygon_area(corners):
         area -= corners[j][0] * corners[i][1]
     area = np.abs(area) / 2.0
     return area
+
 
 # Check if any polygon overlaps
 def intersecting_polygon(p1, p2):
@@ -46,7 +51,9 @@ def intersecting_polygon(p1, p2):
                 return None
             if isinstance(intersection, MultiPolygon):
                 # print ("Multipolygon intersection")
-                interiors = [inter.coords for poly in intersection for inter in poly.interiors]
+                interiors = [
+                    inter.coords for poly in intersection for inter in poly.interiors
+                ]
                 if interiors:
                     log.info("Interiors: " + str(interiors))
                 return [poly.exterior.coords for poly in intersection]
@@ -65,9 +72,9 @@ def intersecting_polygon(p1, p2):
         return None
 
 
-
 def calculate_building_footprint(building):
     pass
+
 
 def check_for_overlap():
     pass

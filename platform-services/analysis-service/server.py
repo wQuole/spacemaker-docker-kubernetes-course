@@ -8,10 +8,12 @@ from analysis import Handler
 
 log.set_format("text")
 log.set_level("info")
-PORT = int(os.getenv('PORT', "8888"))
+PORT = int(os.getenv("PORT", "8888"))
+
 
 def make_app(autoreload):
-    return tornado.web.Application([(r"/", Handler),], autoreload=autoreload)
+    return tornado.web.Application([(r"/", Handler)], autoreload=autoreload)
+
 
 if __name__ == "__main__":
     log.info("Starting server on http://localhost:%s/" % PORT)

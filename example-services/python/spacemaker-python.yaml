@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: spacemaker-python
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: spacemaker-python
+  template:
+    metadata:
+      labels:
+        app: spacemaker-python
+    spec:
+      containers:
+      - name: spacemaker-python
+        image: hakonamdal/spacemaker-python
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spacemaker-python
+spec:
+  selector:
+    app: spacemaker-python
+  ports:
+  - protocol: TCP
+    port: 8888
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spacemaker-python
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /spacemaker-python
+        backend:
+          serviceName: spacemaker-python
+          servicePort: 8888
