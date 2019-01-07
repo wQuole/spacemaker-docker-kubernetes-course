@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacemaker-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spacemaker-java
+  template:
+    metadata:
+      labels:
+        app: spacemaker-java
+    spec:
+      containers:
+      - name: spacemaker-java
+        resources:
+          limits:
+            cpu: 200m
+            memory: 300Mi
+          requests:
+            cpu: 150m
+            memory: 200Mi
+        image: havardh/spacemaker-java:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8090
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spacemaker-java
+spec:
+  selector:
+    app: spacemaker-java
+  ports:
+  - protocol: TCP
+    port: 8090
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spacemaker-java
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /spacemaker-java
+        backend:
+          serviceName: spacemaker-java
+          servicePort: 8090
