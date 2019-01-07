@@ -3,15 +3,6 @@ const endpoints = {
   proxy: "/services/"
 };
 
-function fetchMock() {
-  return Promise.resolve([
-    { x: 0, y: 0, dx: 20, dy: 20, dz: 20 },
-    { x: 80, y: 0, dx: 20, dy: 20, dz: 20 },
-    { x: 0, y: 30, dx: 20, dy: 20, dz: 20 },
-    { x: 80, y: 30, dx: 20, dy: 20, dz: 20 }
-  ]);
-}
-
 function fetchService(name) {
   const url = "/" + name;
   return fetch(url).then(r => r.json());
