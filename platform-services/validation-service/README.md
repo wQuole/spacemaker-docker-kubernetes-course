@@ -16,24 +16,9 @@ Buildings are represented in this JSON data structure:
 }
 ```
 
-## `POST /validate-building`
-
-Post a building in the above format to the `/validate-building` endpoint and
-receive a response on the following format:
-
-```json
-{
-  "isValid": true / false,
-  "errorMessage": "..."
-}
-```
-
-If the building is valid, there will be no error message. If the building is
-invalid, the `errorMessage` field will indicate the validation error.
-
 ## `POST /validate-buildings`
 
-Just like above, but for a set of buildings. Input:
+Validates a set of buildings. Input:
 
 ```json
 [
@@ -52,17 +37,22 @@ Just like above, but for a set of buildings. Input:
 Output will be in the following format:
 
 ```json
-[
-  {
-    // Validation result for building 1
-  },
-  {
-    // Validation result for building 2
-  },
-  ...{
-    // Validation result for building n
-  }
-]
+{
+  "isValid": true / false, // overall flag if the set of buildings is valid or not
+  "errorMessage": "...", // if there's an overall error message
+  "validationResults": [
+    // a list of error messages per building
+    {
+      // Validation result for building 1
+    },
+    {
+      // Validation result for building 2
+    },
+    ...{
+      // Validation result for building n
+    }
+  ]
+}
 ```
 
 ## Hacking

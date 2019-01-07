@@ -1,26 +1,16 @@
-# Hello world Python example
+# Spacemaker Python example
 
-"Hello world" example application, written in Python with the
+Example spacemaker service, written in Python with the
 [Tornado](http://www.tornadoweb.org/en/latest/) web framework.
 
 ## Usage
 
-### `POST hello/`
+### `GET /`
 
-Example input:
-
-```json
-{
-  "name": "Håkon"
-}
-```
-
-Response:
+Returns a list of buildings in the following format:
 
 ```json
-{
-  "greeting": "Hello, Håkon!"
-}
+[{ "x": 0, "y": 0, "dx": 20, "dy": 20, "dz": 20 }, { "x": 40, "y": 40, "dx": 20, "dy": 20, "dz": 40 }]
 ```
 
 ## Hacking
@@ -38,13 +28,13 @@ Server now running on `http://localhost:8888/`.
 Build the image:
 
 ```bash
-$ docker build . -t hello-python
+$ docker build . -t spacemaker-python
 ```
 
 Run the service:
 
 ```bash
-$ docker run -p 8888:8888 -t hello-python
+$ docker run -p 8888:8888 -t spacemaker-python
 ```
 
 Server now running on `http://localhost:8888/`.
@@ -53,8 +43,8 @@ Pushing to dockerhub:
 
 ```bash
 $ docker login
-$ docker tag hello-python <dockerhub id>/hello-python
-$ docker push <dockerhub id>/hello-python
+$ docker tag spacemaker-python <dockerhub id>/spacemaker-python
+$ docker push <dockerhub id>/spacemaker-python
 ```
 
 ## Deploying to kubernetes
@@ -69,5 +59,5 @@ $ gcloud container clusters get-credentials abakus --zone europe-west1-b \
 Then apply the kubernetes configuration by running:
 
 ```bash
-$ kubectl apply -f hello-python.yaml
+$ kubectl apply -f spacemaker-python.yaml
 ```

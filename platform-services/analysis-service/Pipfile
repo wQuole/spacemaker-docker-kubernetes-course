@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+server = "python server.py"
+dev-server = "python server.py autoreload"
+
+[dev-packages]
+
+[packages]
+"spacemakerlog3" = "*"
+rasterio = "*"
+Shapely = "*"
+tornado = "*"
+matplotlib = "*"
+pip = "*"
+
+[requires]
+python_version = "3.7"

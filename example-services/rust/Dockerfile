@@ -1,10 +1,20 @@
-FROM rust:1.29.2
+FROM rust:1.29.2 as build
 
-WORKDIR /app
-COPY . .
+RUN USER=root cargo new --bin spacemaker-course-example-rust
+WORKDIR /spacemaker-course-example-rust
+
+COPY ./Cargo.lock ./Cargo.lock
+COPY ./Cargo.toml ./Cargo.toml
+
+RUN cargo build --release
+RUN rm src/*.rs
+RUN rm ./target/release/deps/spacemaker_course_example_rust*
+
+COPY ./src ./src
 
 RUN cargo build --release
 
-EXPOSE 8080
-
-CMD ["/app/target/release/spacemaker-course-example-rust"]
+FROM debian:jessie-slim
+COPY --from=build /spacemaker-course-example-rust/target/release/spacemaker-course-example-rust /bin/spacemaker-course-example-rust
+EXPOSE 3003
+ENTRYPOINT ["spacemaker-course-example-rust"]

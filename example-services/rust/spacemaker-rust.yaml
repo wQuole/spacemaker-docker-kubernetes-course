@@ -1,40 +1,40 @@
 ---
-apiVersion: apps/v1 
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-python
+  name: spacemaker-rust
 spec:
-  replicas: 1 
+  replicas: 1
   selector:
     matchLabels:
-      app: hello-python
+      app: spacemaker-rust
   template:
     metadata:
       labels:
-        app: hello-python
+        app: spacemaker-rust
     spec:
       containers:
-      - name: hello-python
-        image: hakonamdal/hello-python
-        imagePullPolicy: Always
+      - name: spacemaker-rust
+        image: havardh/spacemaker-rust
         ports:
-        - containerPort: 8888
+        - containerPort: 3003
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: hello-python
+  name: spacemaker-rust
 spec:
   selector:
-    app: hello-python
+    app: spacemaker-rust
   ports:
   - protocol: TCP
-    port: 8888
+    port: 3003
+  type: NodePort
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: hello-python
+  name: spacemaker-rust
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -42,7 +42,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /hello-python
+      - path: /spacemaker-rust
         backend:
-          serviceName: hello-python
-          servicePort: 8888
+          serviceName: spacemaker-rust
+          servicePort: 3003
