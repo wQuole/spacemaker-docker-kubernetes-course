@@ -1,8 +1,15 @@
+const path = require("path");
+
 module.exports = {
   devServer: {
+    contentBase: path.join(__dirname, "dist"),
     proxy: {
-      '/api': {
-        target: 'http://localhost:3003',
+      "/services/*": {
+        target: "http://abakus.spacemaker.ai",
+        changeOrigin: true
+      },
+      "/validation-service": {
+        target: "http://abakus.spacemaker.ai",
         changeOrigin: true
       }
     }

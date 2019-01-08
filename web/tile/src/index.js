@@ -1,112 +1,75 @@
-import { service } from "./service";
+import * as services from "./services/services";
+import * as local from "./services/local";
 
-let scene,
-  tiles = [];
+import { validate, isValid } from "./services/validation";
+import { analyse } from "./services/analysis";
+import { run, update as update3D } from "./render";
+import { render as renderError } from "./views/errors";
+import { render as renderScore } from "./views/score";
+import { render as renderLocalServiceModal } from "./views/localservice";
+import { state, apply } from "./store";
 
-let tileSizeX = 100;
-let tileSizeY = 50;
-let borderX = 10;
-let borderY = 10;
+function updateHash() {
+  const { hash } = document.location;
 
-let maxSizeX = 200;
-function run() {
-  let renderer, camera, controls;
+  const name = hash.replace(/#?\/?/, "");
 
-  init();
-  animate();
-
-  function init() {
-    camera = new THREE.PerspectiveCamera(
-      70,
-      window.innerWidth / window.innerHeight,
-      1,
-      10000
-    );
-    camera.position.z = 400;
-    camera.position.x = 600;
-    camera.position.y = 600;
-    camera.up = new THREE.Vector3(0, 0, 1);
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
-
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-    controls = new THREE.OrbitControls(camera);
+  if (name) {
+    apply({ type: "filter/set", name });
+  } else {
+    apply({ type: "filter/clear" });
   }
+  update();
+}
 
-  function clearScene() {
-    while (scene.children.length > 0) {
-      scene.remove(scene.children[0]);
-    }
+function update() {
+  update3D(state.getTiles());
+  renderScore(state.getAnalysis());
+  renderError(state.getInvalids(), state.getErrors());
+  renderLocalServiceModal(state.getLocalServiceMessage(window.localmode));
+}
+
+window.addEventListener("hashchange", updateHash, false);
+
+async function callService() {
+  if (window.localmode) {
+    apply({ type: "local-service/clear" });
   }
+  const service = window.localmode ? local : services;
 
-  function updateScene(tiles) {
-    let tileX = 0,
-      tileY = 0;
+  for (let { name, app } of await service.getAllServices()) {
+    try {
+      const block = await service.getServiceResult(app);
 
-    clearScene();
-
-    const gridHelper = new THREE.GridHelper(tileSizeX, 40, 0x0000ff, 0x808080);
-    gridHelper.geometry.rotateX(Math.PI / 2);
-    gridHelper.position.x = tileSizeX / 2;
-    gridHelper.position.y = tileSizeX / 2;
-    scene.add(gridHelper);
-
-    for (let tile of tiles) {
-      for (let building of tile) {
-        let { x, y, dx, dy, dz } = building;
-
-        if (dx < 0) dx = 1;
-        if (dy < 0) dy = 1;
-        if (dz < 0) dx = 1;
-        if (dx + x > tileSizeX) {
-          dx = tileSizeX - x;
-        }
-        if (dy + y > tileSizeY) {
-          dy = tileSizeY - y;
-        }
-
-        const geometry = new THREE.BoxBufferGeometry(dx, dy, dz);
-        const material = new THREE.MeshBasicMaterial({
-          color: new THREE.Color(0xcccccc)
-        });
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.x = tileX + (x % tileSizeX) + dx / 2;
-        mesh.position.y = tileY + (y % tileSizeY) + dy / 2;
-        mesh.position.z = dz / 2;
-
-        scene.add(mesh);
+      const validation = await validate(block);
+      if (isValid(validation)) {
+        apply({ type: "result", name, block });
+        const score = await analyse(block);
+        apply({ type: "analyse", name, score });
+      } else {
+        apply({ type: "invalid", name, validation });
       }
-
-      tileX += tileSizeX + borderX;
-      if (tileX + tileSizeX > maxSizeX) {
-        tileX = 0;
-        tileY += tileSizeY + borderY;
+    } catch (error) {
+      if (window.localmode && (error.status === 404 || error.status === 502)) {
+        apply({ type: "local-service/not-found" });
+      } else {
+        apply({ type: "error", name, error });
       }
     }
   }
 
-  function animate() {
-    requestAnimationFrame(animate);
+  update();
+  // setTimeout(callService, 5000);
+}
 
-    updateScene(tiles);
-    controls.update();
-
-    renderer.render(scene, camera);
+function setLocalMessage(isLocal) {
+  if (isLocal) {
+    const div = document.getElementById("local-service");
+    div.style.visibility = "visible";
   }
 }
 
-run();
-
-function callService() {
-  service()
-    .then(data => (tiles = data))
-    .then(() => console.log("update"));
-}
+run(state.getTiles());
 callService();
-setTimeout(callService, 5000);
+updateHash();
+setLocalMessage(window.localmode);

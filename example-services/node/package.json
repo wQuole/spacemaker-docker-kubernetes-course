@@ -1,0 +1,19 @@
+{
+  "name": "example-service-node",
+  "version": "1.0.0",
+  "description": "Example service node",
+  "main": "index.js",
+  "repository": "https://github.com/spacemakerai/spacemaker-docker-kubernetes-course",
+  "author": "Spacemaker <hello@spacemaker.ai>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

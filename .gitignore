@@ -1,1 +1,7 @@
 .terraform/
+.idea/
+__pycache__
+node_modules
+target
+**/*.rs.bk
+dist

@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacemaker-example-service-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spacemaker-example-service-node
+  template:
+    metadata:
+      labels:
+        app: spacemaker-example-service-node
+    spec:
+      containers:
+      - name: spacemaker-example-service-node
+        resources:
+          limits:
+            cpu: 200m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        image: larseen/spacemaker-example-service-node
+        ports:
+        - containerPort: 3000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spacemaker-example-service-node
+spec:
+  selector:
+    app: spacemaker-example-service-node
+  ports:
+  - protocol: TCP
+    port: 3000
