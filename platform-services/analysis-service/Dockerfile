@@ -13,6 +13,7 @@ RUN pipenv install pip && pipenv install
 
 COPY server.py server.py
 COPY analysis.py analysis.py
+COPY worker.py worker.py
 COPY utils utils
 
 # Port 8888 is used within the docker container
