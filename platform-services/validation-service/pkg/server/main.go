@@ -9,6 +9,8 @@ import (
 	"github.com/spacemakerai/spacemaker-docker-kubernetes-course/validation-service/pkg/model"
 )
 
+const BUFFER = 2
+
 // StartServer starts the HTTP server at the specified port
 func StartServer(port int) {
 	http.HandleFunc("/", handleRoot)
@@ -54,7 +56,7 @@ func handleValidateBuildings(w http.ResponseWriter, r *http.Request) {
 	// check for overlap
 	for _, b1 := range buildings {
 		for _, b2 := range buildings {
-			if b1 != b2 && b1.Overlaps(&b2) {
+			if b1 != b2 && b1.Overlaps(&b2, BUFFER) {
 				isValid = false
 				errorMessage = "One or more buildings overlap"
 			}

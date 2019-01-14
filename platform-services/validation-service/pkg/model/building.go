@@ -58,11 +58,11 @@ func (b *Building) IsValid() (bool, string) {
 }
 
 // Overlaps return a boolean whether one building overlaps another
-func (b *Building) Overlaps(b1 *Building) bool {
-	if b.X > b1.X+b1.Dx || b.X+b.Dx < b1.X {
+func (b *Building) Overlaps(b1 *Building, buffer int) bool {
+	if b.X > b1.X+b1.Dx+buffer || b.X+b.Dx+buffer < b1.X {
 		return false
 	}
-	if b.Y > b1.Y+b1.Dy || b.Y+b.Dy < b1.Y {
+	if b.Y > b1.Y+b1.Dy+buffer || b.Y+b.Dy+buffer < b1.Y {
 		return false
 	}
 	return true

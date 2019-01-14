@@ -30,6 +30,26 @@ func TestParseBuilding(t *testing.T) {
 	}
 }
 
+func TestOverlapOverlappingBuffers(t *testing.T) {
+	b1 := Building{
+		X:  0,
+		Y:  0,
+		Dx: 1,
+		Dy: 1,
+		Dz: 1,
+	}
+	b2 := Building{
+		X:  2, // <- too close
+		Y:  0,
+		Dx: 1,
+		Dy: 1,
+		Dz: 1,
+	}
+	if b1.Overlaps(&b2, 2) == false {
+		t.Error("Expected overlapping buildings, but got false")
+	}
+}
+
 func TestIsValid(t *testing.T) {
 	tests := []struct {
 		building            Building
