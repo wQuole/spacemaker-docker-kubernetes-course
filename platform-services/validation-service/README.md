@@ -27,7 +27,7 @@ The validation service will validate that:
    `x + dx` less than 50 and `y + dy` less than 100.
 2. All buildings have a size larger than 0, that is `dx` and `dy` are larger than 0.
 3. Buildings are no taller than 9, that is `dz` smaller than 10.
-4. Buildings are no larger than 19, that is `dx` and `dz` are smaller than 10.
+4. Buildings are no larger than 19, that is `dx` and `dz` are smaller than 20.
 5. No buildings overlap and have at least 2 spaces in between, that is `x1 + dx1 + 2 < x2` and `y1 + dy1 + 2 <= y2`.
 
 ## API documentation
