@@ -23,11 +23,12 @@ Buildings are represented in this JSON data structure:
 
 The validation service will validate that:
 
-1. All buildings are within bounds, which means `x` and `y` is greater than 0,
+1. All buildings are within bounds, which means `x` and `y` are greater than 0,
    `x + dx` less than 50 and `y + dy` less than 100.
-2. All buildings have a size larger than 0, that is `dx` and `dy` is larger than 0.
+2. All buildings have a size larger than 0, that is `dx` and `dy` are larger than 0.
 3. Buildings are no taller than 9, that is `dz` smaller than 10.
-4. No buildings overlap.
+4. Buildings are no larger than 19, that is `dx` and `dz` are smaller than 10.
+5. No buildings overlap.
 
 ## API documentation
 

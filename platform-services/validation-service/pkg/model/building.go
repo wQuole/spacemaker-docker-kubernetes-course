@@ -48,6 +48,12 @@ func (b *Building) IsValid() (bool, string) {
 	if b.Dz > 9 {
 		return false, "Building too tall (dz > 9)"
 	}
+	if b.Dx > 19 {
+		return false, "Building too large (dx > 19)"
+	}
+	if b.Dy > 19 {
+		return false, "Building too large (dy > 19)"
+	}
 	return true, ""
 }
 

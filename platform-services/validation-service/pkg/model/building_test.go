@@ -126,6 +126,26 @@ func TestIsValid(t *testing.T) {
 			},
 			"Building too tall (dz > 9)",
 		},
+		{
+			Building{
+				X:  0,
+				Y:  0,
+				Dx: 20,
+				Dy: 10,
+				Dz: 5,
+			},
+			"Building too large (dx > 19)",
+		},
+		{
+			Building{
+				X:  0,
+				Y:  0,
+				Dx: 10,
+				Dy: 25,
+				Dz: 5,
+			},
+			"Building too large (dy > 19)",
+		},
 	}
 
 	for _, test := range tests {
