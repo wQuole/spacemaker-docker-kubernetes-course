@@ -30,6 +30,26 @@ func TestParseBuilding(t *testing.T) {
 	}
 }
 
+func TestOverlapOverlappingBuffers(t *testing.T) {
+	b1 := Building{
+		X:  0,
+		Y:  0,
+		Dx: 1,
+		Dy: 1,
+		Dz: 1,
+	}
+	b2 := Building{
+		X:  2, // <- too close
+		Y:  0,
+		Dx: 1,
+		Dy: 1,
+		Dz: 1,
+	}
+	if b1.Overlaps(&b2, 2) == false {
+		t.Error("Expected overlapping buildings, but got false")
+	}
+}
+
 func TestIsValid(t *testing.T) {
 	tests := []struct {
 		building            Building
@@ -111,10 +131,10 @@ func TestIsValid(t *testing.T) {
 				X:  0,
 				Y:  20,
 				Dx: 5,
-				Dy: 122,
+				Dy: 80,
 				Dz: 5,
 			},
-			"Building outside bounds (y + dy > 99)",
+			"Building outside bounds (y + dy > 49)",
 		},
 		{
 			Building{
@@ -125,6 +145,26 @@ func TestIsValid(t *testing.T) {
 				Dz: 10,
 			},
 			"Building too tall (dz > 9)",
+		},
+		{
+			Building{
+				X:  0,
+				Y:  0,
+				Dx: 20,
+				Dy: 10,
+				Dz: 5,
+			},
+			"Building too large (dx > 19)",
+		},
+		{
+			Building{
+				X:  0,
+				Y:  0,
+				Dx: 10,
+				Dy: 25,
+				Dz: 5,
+			},
+			"Building too large (dy > 19)",
 		},
 	}
 

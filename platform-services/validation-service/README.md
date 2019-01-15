@@ -2,7 +2,10 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/spacemakerai/spacemaker-docker-kubernetes-course)](https://goreportcard.com/report/github.com/spacemakerai/spacemaker-docker-kubernetes-course)
 
-HTTP service for validating buildings.
+HTTP service for validating that a set of buildings follows necessary
+constraints.
+
+## Data structure
 
 Buildings are represented in this JSON data structure:
 
@@ -16,7 +19,20 @@ Buildings are represented in this JSON data structure:
 }
 ```
 
-## `POST /validate-buildings`
+## Validation rules
+
+The validation service will validate that:
+
+1. All buildings are within bounds, which means `x` and `y` are greater than 0,
+   `x + dx` less than 100 and `y + dy` less than 50.
+2. All buildings have a size larger than 0, that is `dx` and `dy` are larger than 0.
+3. Buildings are no taller than 9, that is `dz` smaller than 10.
+4. Buildings are no larger than 19, that is `dx` and `dy` are smaller than 20.
+5. No buildings overlap and have at least 2 spaces in between, that is `x1 + dx1 + 2 < x2` and `y1 + dy1 + 2 <= y2`.
+
+## API documentation
+
+### `POST /validate-buildings`
 
 Validates a set of buildings. Input:
 
