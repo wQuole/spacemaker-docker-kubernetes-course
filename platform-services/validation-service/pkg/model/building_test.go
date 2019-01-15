@@ -142,19 +142,19 @@ func TestIsValid(t *testing.T) {
 				Y:  0,
 				Dx: 5,
 				Dy: 5,
-				Dz: 10,
+				Dz: 21,
 			},
-			"Building too tall (dz > 9)",
+			"Building too tall (dz > 20)",
 		},
 		{
 			Building{
 				X:  0,
 				Y:  0,
-				Dx: 20,
+				Dx: 21,
 				Dy: 10,
 				Dz: 5,
 			},
-			"Building too large (dx > 19)",
+			"Building too large (dx > 20)",
 		},
 		{
 			Building{
@@ -164,7 +164,7 @@ func TestIsValid(t *testing.T) {
 				Dy: 25,
 				Dz: 5,
 			},
-			"Building too large (dy > 19)",
+			"Building too large (dy > 20)",
 		},
 	}
 
