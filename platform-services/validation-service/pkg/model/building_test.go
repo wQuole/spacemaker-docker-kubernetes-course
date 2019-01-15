@@ -131,10 +131,10 @@ func TestIsValid(t *testing.T) {
 				X:  0,
 				Y:  20,
 				Dx: 5,
-				Dy: 122,
+				Dy: 80,
 				Dz: 5,
 			},
-			"Building outside bounds (y + dy > 99)",
+			"Building outside bounds (y + dy > 49)",
 		},
 		{
 			Building{
