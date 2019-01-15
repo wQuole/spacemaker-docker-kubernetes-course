@@ -66,6 +66,14 @@ need to initialize your SDK yet, we'll do that at the course.
 There are also instructions for specific linux distributions available in the
 documentation, including Ubuntu.
 
+## Kubectl
+
+Kubectl is the Kubernetes command line tool used to deploy and manage
+applications on Kubernetes.
+
+The easiest way to install kubectl is via the Google Cloud SDK. See instructions
+at [https://kubernetes.io/docs/tasks/tools/install-kubectl/#download-as-part-of-the-google-cloud-sdk](https://kubernetes.io/docs/tasks/tools/install-kubectl/#download-as-part-of-the-google-cloud-sdk).
+
 ## Google Account
 
 You need a google account. If you have gmail, you have a google account.
