@@ -39,11 +39,11 @@ func (b *Building) IsValid() (bool, string) {
 	if b.Dz < 1 {
 		return false, "Building dz less than 1"
 	}
-	if b.X+b.Dx > 99 {
-		return false, "Building outside bounds (x + dx > 99)"
+	if b.X+b.Dx > 100 {
+		return false, "Building outside bounds (x + dx > 100)"
 	}
-	if b.Y+b.Dy > 49 {
-		return false, "Building outside bounds (y + dy > 49)"
+	if b.Y+b.Dy > 50 {
+		return false, "Building outside bounds (y + dy > 50)"
 	}
 	if b.Dz > 9 {
 		return false, "Building too tall (dz > 9)"
