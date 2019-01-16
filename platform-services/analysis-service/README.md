@@ -35,12 +35,12 @@ The number of floors is always assumed to be a multiple of FLOOR_HEIGHT
 ## Building Costs
 
 The building site consist of one side with suitable ground conditions for building, 
-and another which requires an additional investment. This can be mapped into a building cost raster, looking like this:
+and another which requires an additional investment. On the northern part of the site the cost of building is 2 per square meter, and the cost for the southern part of the site is 1 per squar meter. This can be mapped into a building cost raster, looking like this:
 
 <img src="https://i.imgur.com/0oEQ2SR.png" alt="cost raster" width="200"/>
 
 
-And the total cost will be the total liveable area multiplied with the cost defined by the cost raster. Hence: 
+The total cost will be the total liveable area multiplied with the cost defined by the cost raster. Hence: 
 
 ```python
 
@@ -55,7 +55,7 @@ For example, if you have a 6 floor builing placed like this:
 
 <a href="//imgur.com/w1OoFfB"></a>
 
-The building cost will be `(2 + 2 + 1 + 1 + 1 + 1) * 6 = 48`. 
+The building cost is `(2 + 2 + 1 + 1 + 1 + 1) * 6 = 48`. 
 
 
 
