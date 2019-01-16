@@ -20,7 +20,7 @@ def _calculate_total_area(buildings):
         list(
             map(
                 lambda building: building.area * building.height // FLOOR_HEIGHT,
-                buildingäs,
+                buildings,
             )
         )
     )
@@ -43,8 +43,6 @@ and another which requires an additional investment. This can be mapped into a b
         return np.sum(buildings_raster * BUILDING_COST_RASTER)
 
 ```
-
-
 
 ## Restrictions 
 
