@@ -8,6 +8,7 @@ Your score is a weighted sum between
 3. A penalty for each constraint breached
 
 
+
 ## Reward
 
 Livable area is calculated as follows. 
@@ -26,7 +27,7 @@ def _calculate_total_area(buildings):
 
 ```
 
-
+**Reward per unit**: 3
 
 The number of floors is always assumed to be a multiple of FLOOR_HEIGHT
 
@@ -42,6 +43,8 @@ and another which requires an additional investment. This can be mapped into a b
         return np.sum(buildings_raster * BUILDING_COST_RASTER)
 
 ```
+
+
 
 ## Restrictions 
 
