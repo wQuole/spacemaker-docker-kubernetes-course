@@ -37,8 +37,8 @@ The number of floors is always assumed to be a multiple of FLOOR_HEIGHT
 The building site consist of one side with suitable ground conditions for building, 
 and another which requires an additional investment. This can be mapped into a building cost raster, looking like this:
 
-![raster](https://imgur.com/a/w1OoFfB)
- 
+![Imgur](https://i.imgur.com/0oEQ2SR.png)
+
 And the total cost will be the total liveable area multiplied with the cost defined by the cost raster. Hence: 
 
 ```python
@@ -48,19 +48,15 @@ And the total cost will be the total liveable area multiplied with the cost defi
 
 ```
 
-<<<<<<< Updated upstream
-=======
-For example, if you have a 6 floor builing placed like this: 
+For example, if you have a 6 floor builing placed like this:  
+![Imgur](https://i.imgur.com/5NTdM8H.png)
 
-![building example](https://imgur.com/a/JPt7umn)
+<a href="//imgur.com/w1OoFfB"></a>
 
 The building cost will be `(2 + 2 + 1 + 1 + 1 + 1) * 6 = 48`. 
 
 
 
-
-
->>>>>>> Stashed changes
 ## Restrictions 
 
 | Restriction         | Value [min, max] | Description                         | Penalty per  square meter |
