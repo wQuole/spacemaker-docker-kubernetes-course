@@ -37,7 +37,8 @@ The number of floors is always assumed to be a multiple of FLOOR_HEIGHT
 The building site consist of one side with suitable ground conditions for building, 
 and another which requires an additional investment. This can be mapped into a building cost raster, looking like this:
 
-![Imgur](https://i.imgur.com/0oEQ2SR.png)
+<img src="https://i.imgur.com/0oEQ2SR.png" alt="cost raster" width="200"/>
+
 
 And the total cost will be the total liveable area multiplied with the cost defined by the cost raster. Hence: 
 
@@ -48,8 +49,9 @@ And the total cost will be the total liveable area multiplied with the cost defi
 
 ```
 
-For example, if you have a 6 floor builing placed like this:  
-![Imgur](https://i.imgur.com/5NTdM8H.png)
+For example, if you have a 6 floor builing placed like this:
+
+<img src="https://i.imgur.com/5NTdM8H.png" alt="budilding raster" width="200"/>
 
 <a href="//imgur.com/w1OoFfB"></a>
 
