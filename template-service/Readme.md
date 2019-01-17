@@ -121,9 +121,9 @@ These steps should be done in [service.yml](./service.yml)
 
 #### Deploy the service to Kubernetes
 
-- a) Tag your docker image. `docker tag <image-name> <username>:<image-name>`
+- a) Tag your docker image. `docker tag <image-name> <username>/<image-name>`
 
-- b) Push your docker image to Dockerhub. `docker push <username>:<image-name>`
+- b) Push your docker image to Dockerhub. `docker push <username>/<image-name>`
 
 - c) Deploy the service to Kubernetes `kubectl apply -f service.yml`
 
