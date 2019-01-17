@@ -46,7 +46,7 @@ need to initialize your SDK yet, we'll do that at the course.
 You can also install the SDK with homebrew:
 
 ```
-$ brew install google-cloud-sdk
+$ brew cask install google-cloud-sdk
 ```
 
 ### Windows
