@@ -34,15 +34,23 @@ interests you.
   {
     x: 5,
     y: 5,
-    dx: 20,
-    dy: 30,
+    dx: 10,
+    dy: 20,
+    dz: 6
+  },
+  {
+    x: 40,
+    y: 5,
+    dx: 10,
+    dy: 20,
     dz: 6
   }
 ]
 ```
 
-(This means create a 30x20 meters building with a height of 9 meters and place
-it 5 meters from the top and left edges)
+This means create two 20x10 meters building with a height of 6 meters. place
+the first building 5 meters from the top and left edges and the second 40 meters
+from the top.
 
 You can test your server using `$ curl localhost:8080`, assuming that your server
 runs on port 8080. It should reply with the JSON structure above.
