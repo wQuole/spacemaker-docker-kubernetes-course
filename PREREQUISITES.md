@@ -18,7 +18,7 @@ this part, as we'll cover that during the course.
 ### Windows
 
 To install on Windows, follow these instructions:
-[https://docs.docker.com/docker-for-windows/install/](https://docs.docker.com/docker-for-windows/install/)
+[https://docs.docker.com/toolbox/toolbox_install_windows/](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
 If you're asked to create or log in to your DockerHub account, you can skip
 this part, as we'll cover that during the course.
