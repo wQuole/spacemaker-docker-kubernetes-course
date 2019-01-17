@@ -3,15 +3,15 @@ from shapely.geometry import Polygon as S_Polygon
 import os
 import numpy as np
 
-SITE_DIM = os.getenv("SITE_DIM", [100, 100])
+SITE_DIM = os.getenv("SITE_DIM", [50, 100])
 EXPECTED_RATIO = os.getenv("EXPECTED_RATIO", 0.6)
-AREAL_TO_AREA = os.getenv("AREAL_TO_AREA", 1.5)
+AREAL_TO_AREA = os.getenv("AREAL_TO_AREA", 3)
 FLOOR_HEIGHT = os.getenv("FLOOR_HEIGHT", 3.2)
 
 
 # Calculate maximal sum (e..g you can only fill so much of a site)
 OPTIMAL_RASTER = np.array(
-    [[1 if i < 50 else 2 for i in range(SITE_DIM[0])] for j in range(SITE_DIM[1])]
+    [[1 if i < 50 else 2 for i in range(SITE_DIM[1])] for j in range(SITE_DIM[0])]
 )
 
 # Scores
@@ -50,8 +50,9 @@ def _calculate_total_area(buildings):
     )
 
 
+
 def _calculate_score(buildings, buildings_raster):
-    bya = _calculate_total_area(buildings)
+    bya = _calculate_total_footprint(buildings)
     total_area = _calculate_total_area(buildings)
 
     def calculate_area_score():
@@ -80,6 +81,6 @@ def _calculate_score(buildings, buildings_raster):
 
 def calculate_score(solution):
     buildings = _create_buildings(solution)
-    building_raster = rasterize.get_site_rasterized(buildings, SITE_DIM)
+    building_raster = rasterize.get_site_rasterized(buildings, dim=SITE_DIM)
 
     return _calculate_score(buildings, building_raster)
