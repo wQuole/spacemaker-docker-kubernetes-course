@@ -32,6 +32,10 @@ process is a little more tedious than on Windows and Mac.
 For a Ubuntu specific
 guide, see [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04).
 
+## DockerHub
+
+Go to https://hub.docker.com/ and create an account.
+
 ## Google Cloud SDK
 
 Command-line interface for Google Cloud Platform products and services. Needed
@@ -77,3 +81,7 @@ at [https://kubernetes.io/docs/tasks/tools/install-kubectl/#download-as-part-of-
 ## Google Account
 
 You need a google account. If you have gmail, you have a google account.
+
+## Git
+
+It is beneficial, but not needed to have git installed.
