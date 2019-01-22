@@ -18,6 +18,12 @@ Returns a list of buildings in the following format:
 
 ## Hacking
 
+Install dependencies with
+
+```bash
+$ pipenv install
+```
+
 Run the server with the following command:
 
 ```bash
