@@ -12,16 +12,16 @@ Docker is a full development platform for creating containerized apps.
 To install docker on OSX, follow these instructions:
 [https://docs.docker.com/docker-for-mac/install/](https://docs.docker.com/docker-for-mac/install/).
 
-If you're asked to create or log in to your DockerHub account, you can skip
-this part, as we'll cover that during the course.
+The installation might prompt you to create or log in to your DockerHub account.
+You can do this now or do it later (see below).
 
 ### Windows
 
 To install on Windows, follow these instructions:
 [https://docs.docker.com/toolbox/toolbox_install_windows/](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
-If you're asked to create or log in to your DockerHub account, you can skip
-this part, as we'll cover that during the course.
+The installation might prompt you to create or log in to your DockerHub account.
+You can do this now or do it later (see below).
 
 ### Linux
 
@@ -43,15 +43,16 @@ to deploy services in the Kubernetes cluster.
 
 ### OSX
 
-Instructions on how to install it are found here: [https://cloud.google.com/sdk/docs/quickstart-macos](https://cloud.google.com/sdk/docs/quickstart-macos).
-Skip the step where you're asked to create a GCP project. Also, there's no
-need to initialize your SDK yet, we'll do that at the course.
-
-You can also install the SDK with homebrew:
+Install the SDK with homebrew:
 
 ```
 $ brew cask install google-cloud-sdk
 ```
+
+In case you don't have homebrew installed, instructions on how to install it are
+found here: [https://cloud.google.com/sdk/docs/quickstart-macos](https://cloud.google.com/sdk/docs/quickstart-macos).
+Skip the step where you're asked to create a GCP project. Also, there's no
+need to initialize your SDK yet, we'll do that at the course.
 
 ### Windows
 
@@ -80,8 +81,8 @@ at [https://kubernetes.io/docs/tasks/tools/install-kubectl/#download-as-part-of-
 
 ## Google Account
 
-You need a google account. If you have gmail, you have a google account.
+You need a Google account. If you have gmail, you have a Google account.
 
 ## Git
 
-It is beneficial, but not needed to have git installed.
+It is beneficial to have git installed, but strictly not needed.
