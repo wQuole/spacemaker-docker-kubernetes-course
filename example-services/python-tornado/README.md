@@ -1,7 +1,9 @@
-# Spacemaker Python example
+# Spacemaker Python Tornado example
 
 Example spacemaker service, written in Python with the
 [Tornado](http://www.tornadoweb.org/en/latest/) web framework.
+
+Compared to to the `python-flask` example service, this service uses `pipenv`.
 
 ## Usage
 
