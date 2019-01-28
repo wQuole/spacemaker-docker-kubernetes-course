@@ -1,3 +1,6 @@
 FROM python:3.7
-EXPOSE 8888
-ENTRYPOINT ["python",  "-m", "http.server", "8888"] 
+COPY server.py .
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+EXPOSE 5000
+ENTRYPOINT python server.py
