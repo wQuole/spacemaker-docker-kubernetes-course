@@ -2,20 +2,20 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: spacemaker-python
+  name: spacemaker-python-tornado
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: spacemaker-python
+      app: spacemaker-python-tornado
   template:
     metadata:
       labels:
-        app: spacemaker-python
+        app: spacemaker-python-tornado
     spec:
       containers:
-      - name: spacemaker-python
-        image: hakonamdal/spacemaker-python
+      - name: spacemaker-python-tornado
+        image: hakonamdal/spacemaker-python-tornado
         imagePullPolicy: Always
         ports:
         - containerPort: 8888
@@ -23,10 +23,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-python
+  name: spacemaker-python-tornado
 spec:
   selector:
-    app: spacemaker-python
+    app: spacemaker-python-tornado
   ports:
   - protocol: TCP
     port: 8888
@@ -34,7 +34,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: spacemaker-python
+  name: spacemaker-python-tornado
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -42,7 +42,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /spacemaker-python
+      - path: /spacemaker-python-tornado
         backend:
-          serviceName: spacemaker-python
+          serviceName: spacemaker-python-tornado
           servicePort: 8888

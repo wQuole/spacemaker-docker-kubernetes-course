@@ -1,7 +1,9 @@
-# Spacemaker Python example
+# Spacemaker Python Tornado example
 
 Example spacemaker service, written in Python with the
 [Tornado](http://www.tornadoweb.org/en/latest/) web framework.
+
+Compared to to the `python-flask` example service, this service uses `pipenv`.
 
 ## Usage
 
@@ -28,13 +30,13 @@ Server now running on `http://localhost:8888/`.
 Build the image:
 
 ```bash
-$ docker build . -t spacemaker-python
+$ docker build . -t spacemaker-python-tornado
 ```
 
 Run the service:
 
 ```bash
-$ docker run -p 8888:8888 -t spacemaker-python
+$ docker run -p 8888:8888 -t spacemaker-python-tornado
 ```
 
 Server now running on `http://localhost:8888/`.
@@ -43,8 +45,8 @@ Pushing to dockerhub:
 
 ```bash
 $ docker login
-$ docker tag spacemaker-python <dockerhub id>/spacemaker-python
-$ docker push <dockerhub id>/spacemaker-python
+$ docker tag spacemaker-python-tornado <dockerhub id>/spacemaker-python-tornado
+$ docker push <dockerhub id>/spacemaker-python-tornado
 ```
 
 ## Deploying to kubernetes
@@ -59,5 +61,5 @@ $ gcloud container clusters get-credentials abakus --zone europe-west1-b \
 Then apply the kubernetes configuration by running:
 
 ```bash
-$ kubectl apply -f spacemaker-python.yaml
+$ kubectl apply -f spacemaker-python-tornado.yaml
 ```
