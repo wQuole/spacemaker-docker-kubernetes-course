@@ -38,11 +38,26 @@ Server now runs at `http://localhost:5000/`.
 Build the docker image with the following command:
 
 ```bash
-$ docker build -t hello-python-flask .
+$ docker build -t spacemaker-python-flask .
 ```
 
 Run the docker image with port forwarding:
 
 ```bash
-$ docker run -p 5000:5000 hello-python-flask
+$ docker run -p 5000:5000 spacemaker-python-flask
+```
+
+## Deploing
+
+First, push the image to DockerHub:
+
+```bash
+$ docker tag spacemaker-python-flask hakonamdal/spacemaker-python-flask
+$ docker push hakonamdal/spacemaker-python-flask
+```
+
+Then apply the kubernetes configuration by running:
+
+```bash
+$ kubectl apply -f spacemaker-python-flask.yaml
 ```

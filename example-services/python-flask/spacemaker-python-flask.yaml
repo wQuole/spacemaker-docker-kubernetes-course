@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: spacemaker-python-flask
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: spacemaker-python-flask
+  template:
+    metadata:
+      labels:
+        app: spacemaker-python-flask
+    spec:
+      containers:
+      - name: spacemaker-python-flask
+        image: hakonamdal/spacemaker-python-flask
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spacemaker-python-flask
+spec:
+  selector:
+    app: spacemaker-python-flask
+  ports:
+  - protocol: TCP
+    port: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spacemaker-python-flask
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /spacemaker-python-flask
+        backend:
+          serviceName: spacemaker-python-flask
+          servicePort: 5000
