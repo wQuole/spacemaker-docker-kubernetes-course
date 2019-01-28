@@ -1,10 +1,8 @@
 # Spacemaker service template
 
-This folder contains a template and text for the workshop assignment.
-To solve the it, you will need to _copy a web server_, _write the
-Dockerfile_, _write the service.yml_, and _push the docker image and deploy
-the service_. If you get stuck you can look at the example services to
-find proposed solutions in [java](../example-services/java),
+This folder contains a template for the workshop assignment.
+To solve the assignment, you should create and deploy your own service. 
+If you get stuck, you can look at the example services in [java](../example-services/java),
 [javascript](../example-services/node), [python](../example-services/python) and
 [rust](../example-services/rust).
 
@@ -12,32 +10,27 @@ find proposed solutions in [java](../example-services/java),
 
 ### Breakdown
 
-1.  Copy the server implementation in the language of your choice
+1.  Copy the server code for the language of your choice
 2.  Create a docker image which contains your server
 3.  Create the Kubernetes deployment configuration
 4.  Deploy your server to abakus.spacemaker.ai
 
-If you complete all of these steps, then each of the first three includes extra
-optional steps. These do not build upon each other and you can pick the ones that
-interests you.
-
-#### Creating a web server
+#### Copy the web server
 
 1. Pick a server from the [`sample-servers`](../sample-servers) directory.
 
-2. Copy the contents of its folder into this directory (template-service).
+2. Copy the contents into your project directory.
 
-#### Create a docker image for you server.
+#### Create a docker image for your server.
 
-The steps here are the most common steps needed to create a docker image. For
-some languages there can be more or less steps needed. A simple google search
-can on `docker <language> <framework>` will usually help. These steps should
-be done in the [Dockerfile](./Dockerfile).
+The steps here are the most common steps needed to create a docker image. 
+(For some languages they are different)
+These steps should be done in the [Dockerfile](./Dockerfile).
 
 1. Add a base image to your `Dockerfile` (`FROM <image-name>:<tag>`)
    (Sometimes you need to install additional dependencies) (e.g `RUN apt-get install <...>`)
 
-2. Copy the source code from you project folder into the image (`COPY <path on host> <path on image>`)
+2. Copy the source code from your project folder into the image (`COPY <path on host> <path on image>`)
 
 3. Run the build command for your language (e.g. `RUN npm install`)
 
@@ -46,10 +39,10 @@ be done in the [Dockerfile](./Dockerfile).
 5. Build your service with `docker build . -t <your-docker-image-name>`
    Run it with `docker run -it -d -p <port> <your-docker-image-name>`
 
-You can now test your server with the same `curl localhost:<port>` command.
+You can now test your server with the `curl localhost:<port>` command.
 
-You can see all running docker containers with `docker ps`. The first field is
-the container id. You can use this to get the stdout output with
+You can see all running docker containers with `docker ps`. The first field in the result is
+the container id. You can use this to get the stdout output of the server with
 `docker logs <container-id>` and you can stop the container with
 `docker stop <container-id>`. If you run `docker run ...` and `docker ps`
 without your container showing up, then the docker container has crashed when
@@ -83,11 +76,11 @@ You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
 
 2. Write an algorithm for optimizing the placement of the buildings.
    You can look at the readme of the [`analysis-service`](../platform-services/analysis-service)
-   for the rules which you solution is evaluated based on. Try to optimize for
+   for the rules which your solution is evaluated based on. Try to optimize for
    these criteria.
 
-3. Reduce the size of the resulting docker images as much as possible. You can find the size of your image with the docker images command. Hint: docker supports layered builds, where you first set up a build image which produces a binary file, this file is then copied to a run image which is capable of running the binary, but much smaller than build image. See validation-service and services-service for examples.
-   (there is a small prize for the smallest working image)
+3. Reduce the size of the resulting docker image as much as possible. You can find the size of your image with the docker images command. Hint: docker supports layered builds, where you first set up a build image which produces a binary file, this file is then copied to a run image which is capable of running the binary. See validation-service and services-service for examples.
+  
 
 4. Make your Docker build run the minimal number of step for each subsequent builds. Your local installation of Docker includes a cache which it will use to reduce the number of operations it will do. Examples of typical reductions includes; avoid reinstall platform build dependencies on each build, avoid reinstall code dependencies when only code has changed.
 
