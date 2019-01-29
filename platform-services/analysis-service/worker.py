@@ -80,8 +80,6 @@ def _calculate_score(buildings, buildings_raster):
 
 
 def calculate_score(solution):
-    global OPTIMAL_RASTER
-    raster = OPTIMAL_RASTER
     buildings = _create_buildings(solution)
     building_raster = rasterize.get_site_rasterized(buildings, dim=SITE_DIM)
 
