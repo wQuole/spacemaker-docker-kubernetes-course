@@ -12,7 +12,7 @@ def get_buildings():
             {"x": randint(0, 10), "y": randint(0, 10),
              "dx": 5, "dy": 5, "dz": 5},
             {"x": randint(20, 30), "y": randint(20, 30),
-             "dx": 20, "dy": 20, "dz": 40},
+             "dx": 5, "dy": 5, "dz": 5},
         ]
     )
 
