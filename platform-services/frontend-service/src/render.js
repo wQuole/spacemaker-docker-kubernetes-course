@@ -86,8 +86,8 @@ function createBuilding({ x, y, dx, dy, dz }, color) {
     color: new THREE.Color(0xcccccc)
   });
   const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.x = x + dx / 2;
-  mesh.position.y = y + dy / 2;
+  mesh.position.x = dx / 2;
+  mesh.position.y = dy / 2;
   mesh.position.z = dz / 2;
   mesh.castShadow = true;
   mesh.receiveShadow = true;
@@ -99,13 +99,17 @@ function createBuilding({ x, y, dx, dy, dz }, color) {
       side: THREE.DoubleSide
     })
   );
-  roof.position.x = x + dx / 2;
-  roof.position.y = y + dy / 2;
+  roof.position.x = dx / 2;
+  roof.position.y = dy / 2;
   roof.position.z = dz + 0.01;
 
   const building = new THREE.Group();
   building.add(mesh);
   building.add(roof);
+
+  building.position.x = x;
+  building.position.y = y;
+  building.position.z = 0.01;
 
   return building;
 }
