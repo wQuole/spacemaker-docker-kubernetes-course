@@ -1,31 +1,29 @@
 # Spacemaker service template
 
 This folder contains a template for the workshop assignment.
-To solve the assignment, you should create and deploy your own service. 
+To solve the assignment, you should create and deploy your own service.
 If you get stuck, you can look at the example services in [java](../example-services/java),
-[javascript](../example-services/node), [python](../example-services/python) and
+[javascript](../example-services/node), [python](../example-services/python-flask) and
 [rust](../example-services/rust).
 
 ## Assignment
 
 ### Breakdown
 
-1.  Copy the server code for the language of your choice
+1.  Pick the server code for the language of your choice
 2.  Create a docker image which contains your server
 3.  Create the Kubernetes deployment configuration
 4.  Deploy your server to abakus.spacemaker.ai
 
-#### Copy the web server
+#### Pick the web server
 
-1. Pick a server from the [`sample-servers`](../sample-servers) directory.
-
-2. Copy the contents into your project directory.
+1. Pick a server from the [`assignment`](.) directory.
 
 #### Create a docker image for your server.
 
-The steps here are the most common steps needed to create a docker image. 
+The steps here are the most common steps needed to create a docker image.
 (For some languages they are different)
-These steps should be done in the [Dockerfile](./Dockerfile).
+These steps should be done in `Dockerfile` in your server directory.
 
 1. Add a base image to your `Dockerfile` (`FROM <image-name>:<tag>`)
    (Sometimes you need to install additional dependencies) (e.g `RUN apt-get install <...>`)
@@ -54,7 +52,7 @@ starting.
 
 #### Create the Kubernetes deployment configuration
 
-These steps should be done in [service.yml](./service.yml)
+These steps should be done in `service.yml` in your server directory.
 
 1. Pick a `path` for your application. It will be mounted on
    abakus.spacemaker.ai/<your-path>
@@ -80,8 +78,7 @@ You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
    these criteria.
 
 3. Reduce the size of the resulting docker image as much as possible. You can find the size of your image with the docker images command. Hint: docker supports layered builds, where you first set up a build image which produces a binary file, this file is then copied to a run image which is capable of running the binary. See validation-service and services-service for examples.
-  
 
-4. Make your Docker build run the minimal number of step for each subsequent builds. Your local installation of Docker includes a cache which it will use to reduce the number of operations it will do. Examples of typical reductions includes; avoid reinstall platform build dependencies on each build, avoid reinstall code dependencies when only code has changed.
+4) Make your Docker build run the minimal number of step for each subsequent builds. Your local installation of Docker includes a cache which it will use to reduce the number of operations it will do. Examples of typical reductions includes; avoid reinstall platform build dependencies on each build, avoid reinstall code dependencies when only code has changed.
 
-5) Configure the resource utilization appropriate for your langauge in the `service.yml` file.
+5. Configure the resource utilization appropriate for your langauge in the `service.yml` file.
