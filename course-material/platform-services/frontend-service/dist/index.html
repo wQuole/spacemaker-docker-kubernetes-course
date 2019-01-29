@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #FFF;
+				overflow: hidden;
+			}
+
+      #local-service {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        visibility: hidden
+      }
+
+      #score {
+        padding: 5px;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 300px;
+        background-color: #EEE;
+      }
+
+      #failed {
+        padding: 5px;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        height: 100%;
+        width: 300px;
+        background-color: #EEE;
+      }
+
+      #modal {
+        visibility: hidden;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+      }
+
+      #modal .modal {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        height: 200px;
+        width: 80%;
+      }
+
+      #modal .modal h2 {
+        width: 100%;
+        text-align: center;
+        margin-top: 80px;
+      }
+
+		</style>
+  </head>
+
+  <body>
+    <div id="score">Score:</div>
+    <div id="failed">Failed:</div>
+    <div id="modal"></div>
+
+    <div id="local-service">Using localhost</div>
+    <script src="three.min.js"/></script>
+    <script src="OrbitControls.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
