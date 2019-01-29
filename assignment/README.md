@@ -49,7 +49,7 @@ starting.
 
 #### Create the Kubernetes deployment configuration
 
-These steps should be done in `service.yml` in your server directory.
+These steps should be done in `manifest.yml` in your server directory.
 
 1. Pick a `path` for your application. It will be mounted on
    abakus.spacemaker.ai/<your-path>
@@ -60,7 +60,7 @@ These steps should be done in `service.yml` in your server directory.
 
 4. Add an Ingress `kind: Ingress`
 
-5. Deploy the service to Kubernetes `kubectl apply -f service.yml`
+5. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
 
 You should now be able to see your solution on http://abakus.spacemaker.ai
 You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
