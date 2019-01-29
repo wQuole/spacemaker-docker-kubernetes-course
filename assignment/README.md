@@ -9,8 +9,9 @@ To solve the assignment, you should create and deploy your own service.
 
 1.  Pick the server code for the language of your choice
 2.  Create a docker image which contains your server
-3.  Create the Kubernetes deployment configuration
-4.  Deploy your server to abakus.spacemaker.ai
+3.  Set up and authorize `kubectl`
+4.  Create the Kubernetes deployment configuration
+5.  Deploy your server to abakus.spacemaker.ai
 
 #### Pick the web server
 
@@ -46,6 +47,19 @@ starting.
 6. Tag your docker image. `docker tag <image-name> <username>/<image-name>`
 
 7. Push your docker image to Dockerhub. `docker push <username>/<image-name>`
+
+#### Set up and authorize `kubectl`
+
+1. Verify that `kubectl` is installed by running `kubectl`. If it's not installed,
+   see [PREREQUISITES.md](../PREREQUISITES.md)
+
+2. Authorize `kubectl` with your google account by running
+   `gcloud auth application-default login`.
+
+3. Download login credentials for the Kubernetes cluster used in this course by
+   running `gcloud container clusters get-credentials abakus --zone europe-west1-b --project spacemaker-kubernetes-workshop`
+
+4. Verify that you can list pods in the cluster: `kubectl get pods`
 
 #### Create the Kubernetes deployment configuration
 
