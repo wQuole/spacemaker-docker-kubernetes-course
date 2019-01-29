@@ -10,6 +10,30 @@ import { render as renderLocalServiceModal } from "./views/localservice";
 import { state, apply } from "./store";
 
 window.showValidations = false;
+const colors = [
+  "#e6194b",
+  "#3cb44b",
+  "#ffe119",
+  "#4363d8",
+  "#f58231",
+  "#911eb4",
+  "#46f0f0",
+  "#f032e6",
+  "#bcf60c",
+  "#fabebe",
+  "#008080",
+  "#e6beff",
+  "#9a6324",
+  "#fffac8",
+  "#800000",
+  "#aaffc3",
+  "#808000",
+  "#ffd8b1",
+  "#000075",
+  "#808080",
+  "#ffffff",
+  "#000000"
+];
 
 function updateHash() {
   const { hash } = document.location;
@@ -38,33 +62,34 @@ async function callService() {
     apply({ type: "local-service/clear" });
   }
   const service = window.localmode ? local : services;
-
+  let colorIndex = 0;
   for (let { name, app } of await service.getAllServices()) {
+    const color = colors[colorIndex++];
     try {
-      const block = await service.getServiceResult(app);
+      const tile = await service.getServiceResult(app);
 
-      const validation = await validate(block);
+      const validation = await validate(tile);
       if (isValid(validation)) {
-        apply({ type: "result", name, block });
-        const score = await analyse(block);
-        apply({ type: "analyse", name, score });
+        apply({ type: "result", name, tile, color });
+        const score = await analyse(tile);
+        apply({ type: "analyse", name, score, color });
       } else {
         if (window.showValidations) {
-          console.log({ name, block, validation });
+          console.log({ name, tile, validation });
         }
-        apply({ type: "invalid", name, validation });
+        apply({ type: "invalid", name, validation, color });
       }
     } catch (error) {
       if (window.localmode && (error.status === 404 || error.status === 502)) {
         apply({ type: "local-service/not-found" });
       } else {
-        apply({ type: "error", name, error });
+        apply({ type: "error", name, error, color });
       }
     }
   }
 
   update();
-  setTimeout(callService, 5000);
+  //setTimeout(callService, 5000);
 }
 
 function setLocalMessage(isLocal) {

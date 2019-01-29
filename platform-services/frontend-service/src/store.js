@@ -61,37 +61,37 @@ export function apply(change) {
     }
 
     case "result": {
-      const { name, block } = change;
+      const { name, tile, color } = change;
       delete state.analysis[name];
       delete state.invalids[name];
       delete state.errors[name];
-      state.tiles[name] = block;
+      state.tiles[name] = { tile, color };
       break;
     }
 
     case "analyse": {
-      const { name, score } = change;
+      const { name, score, color } = change;
       delete state.invalids[name];
       delete state.errors[name];
-      state.analysis[name] = score;
+      state.analysis[name] = { score, color };
       break;
     }
 
     case "invalid": {
-      const { name, validation } = change;
+      const { name, validation, color } = change;
       delete state.analysis[name];
       delete state.tiles[name];
       delete state.errors[name];
-      state.invalids[name] = validation;
+      state.invalids[name] = { validation, color };
       break;
     }
 
     case "error": {
-      const { name, error } = change;
+      const { name, error, color } = change;
       delete state.analysis[name];
       delete state.tiles[name];
       delete state.invalids[name];
-      state.errors[name] = error;
+      state.errors[name] = { error, color };
       break;
     }
   }

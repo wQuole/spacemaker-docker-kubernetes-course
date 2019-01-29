@@ -70,7 +70,7 @@ function createGrid() {
   return gridHelper;
 }
 
-function createBuilding({ x, y, dx, dy, dz }) {
+function createBuilding({ x, y, dx, dy, dz }, color) {
   if (dx < 0) dx = 1;
   if (dy < 0) dy = 1;
   if (dz < 0) dx = 1;
@@ -92,7 +92,22 @@ function createBuilding({ x, y, dx, dy, dz }) {
   mesh.castShadow = true;
   mesh.receiveShadow = true;
 
-  return mesh;
+  const roof = new THREE.Mesh(
+    new THREE.PlaneGeometry(dx, dy),
+    new THREE.MeshLambertMaterial({
+      color: color,
+      side: THREE.DoubleSide
+    })
+  );
+  roof.position.x = x + dx / 2;
+  roof.position.y = y + dy / 2;
+  roof.position.z = dz + 0.01;
+
+  const building = new THREE.Group();
+  building.add(mesh);
+  building.add(roof);
+
+  return building;
 }
 
 function createGround(width, height, borderWidth, borderHeight) {
@@ -145,7 +160,7 @@ function createTiles(tiles) {
   let tileX = 0,
     tileY = 0;
   const city = new THREE.Group();
-  for (let [service, tile] of sortedEntries(tiles)) {
+  for (let [service, { tile, color }] of sortedEntries(tiles)) {
     const block = new THREE.Group();
 
     block.position.x = tileX;
@@ -156,7 +171,7 @@ function createTiles(tiles) {
 
     block.add(createGround(tileSizeX, tileSizeY, borderX, borderY));
     for (let building of tile) {
-      block.add(createBuilding(building));
+      block.add(createBuilding(building, color));
     }
 
     tileY = tileY + tileSizeY + borderY;
