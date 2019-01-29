@@ -1,0 +1,30 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-server-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-server-pod
+    spec:
+      containers:
+      - image: hakonamdal/hello-server
+        name: hello-server-container
+        ports:
+        - containerPort: 5000
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-server-service
+spec:
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+  selector:
+    app: hello-server-pod
