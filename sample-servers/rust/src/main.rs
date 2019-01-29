@@ -19,12 +19,10 @@ struct Polygon {
 }
 
 fn main() {
-
-
     let polygons = vec![
-        Polygon { x: 0, y: 0, dx: 20, dy: 20, dz: 20 },
-        Polygon { x: 25, y: 0, dx: 5, dy: 5, dz: 70 },
-        Polygon { x: 40, y: 40, dx: 40, dy: 40, dz: 40 },
+        Polygon { x: 0, y: 0, dx: 10, dy: 20, dz: 15 },
+        Polygon { x: 25, y: 0, dx: 10, dy: 10, dz: 20 },
+        Polygon { x: 40, y: 30, dx: 20, dy: 10, dz: 20 },
     ];
 
     let hello = move |_: &mut Request| {
