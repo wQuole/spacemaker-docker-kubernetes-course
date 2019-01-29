@@ -37,7 +37,7 @@ These steps should be done in the [Dockerfile](./Dockerfile).
 4. Add the command which starts your server (e.g. `ENTRYPOINT ["node", "index.js"]`)
 
 5. Build your service with `docker build . -t <your-docker-image-name>`
-   Run it with `docker run -it -d -p <port> <your-docker-image-name>`
+   Run it with `docker run -p <host port>:<container port> <your-docker-image-name>`
 
 You can now test your server with the `curl localhost:<port>` command.
 
