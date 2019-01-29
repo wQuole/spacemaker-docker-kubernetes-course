@@ -15,7 +15,7 @@ const css = o =>
   '"';
 
 const sortedEntriesByScore = scores =>
-  Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  Object.entries(scores).sort((a, b) => b[1].score - a[1].score);
 
 function renderBlock([name, { score, color }]) {
   return `<li><div ${css(style(color))}> </div> ${name} - ${score}</li>`;
