@@ -11,7 +11,7 @@ public class Service {
 
   @RequestMapping("/")
   public List<Building> buldings() {
-    return Collections.singletonList(new Building(0.0, 0.0, 100.0, 50.0, 9.0));
+    return Collections.singletonList(new Building(0.0, 0.0, 20.0, 20.0, 9.0));
   }
 
 }
