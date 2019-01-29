@@ -89,7 +89,6 @@ async function callService() {
   }
 
   update();
-  //setTimeout(callService, 5000);
 }
 
 function setLocalMessage(isLocal) {
@@ -101,5 +100,6 @@ function setLocalMessage(isLocal) {
 
 run(state.getTiles());
 callService();
+setInterval(callService, 5000);
 updateHash();
 setLocalMessage(window.localmode);
