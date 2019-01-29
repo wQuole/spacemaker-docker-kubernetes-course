@@ -2,9 +2,6 @@
 
 This folder contains a template for the workshop assignment.
 To solve the assignment, you should create and deploy your own service.
-If you get stuck, you can look at the example services in [java](../example-services/java),
-[javascript](../example-services/node), [python](../example-services/python-flask) and
-[rust](../example-services/rust).
 
 ## Assignment
 
