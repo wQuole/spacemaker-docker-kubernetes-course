@@ -9,5 +9,5 @@ export async function validate(block) {
 }
 
 export function isValid(validationResult) {
-  return validationResult.isValid || true;
+  return validationResult.isValid;
 }

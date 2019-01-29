@@ -9,6 +9,8 @@ import { render as renderScore } from "./views/score";
 import { render as renderLocalServiceModal } from "./views/localservice";
 import { state, apply } from "./store";
 
+window.showValidations = false;
+
 function updateHash() {
   const { hash } = document.location;
 
@@ -47,6 +49,9 @@ async function callService() {
         const score = await analyse(block);
         apply({ type: "analyse", name, score });
       } else {
+        if (window.showValidations) {
+          console.log({ name, block, validation });
+        }
         apply({ type: "invalid", name, validation });
       }
     } catch (error) {
