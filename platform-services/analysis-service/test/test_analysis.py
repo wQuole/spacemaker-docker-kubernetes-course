@@ -2,10 +2,10 @@ from worker import calculate_score
 
 input_dict = {
     "buildings": [{
-    "x": 0.0,
-    "y": 0.0,
-    "dx": 100.0,
-    "dy": 50.0,
+    "x": 50.0,
+    "y": 25.0,
+    "dx": 50.0,
+    "dy": 25.0,
     "dz": 9.0
 }]
 
