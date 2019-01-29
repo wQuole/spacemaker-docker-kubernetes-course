@@ -4,5 +4,5 @@ import numpy as np
 from utils.helpers import get_polygon_cords
 
 
-def get_site_rasterized(buildings, dim=[100, 100]):
-    return rasterize([(building.polygon, 1) for building in buildings], out_shape=dim)
+def get_site_rasterized(buildings, dim=[50, 100]):
+    return rasterize([(building.polygon, building.height) for building in buildings], out_shape=dim)

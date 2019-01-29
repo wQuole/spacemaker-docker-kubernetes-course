@@ -11,7 +11,10 @@ FLOOR_HEIGHT = os.getenv("FLOOR_HEIGHT", 3.2)
 
 # Calculate maximal sum (e..g you can only fill so much of a site)
 OPTIMAL_RASTER = np.array(
-    [[1 if i < 50 else 2 for i in range(SITE_DIM[1])] for j in range(SITE_DIM[0])]
+    [
+        [1 for i in range(SITE_DIM[1])] if j < 25 else [2 for i in range(SITE_DIM[1])]
+        for j in range(SITE_DIM[0])
+    ]
 )
 
 # Scores
@@ -20,8 +23,6 @@ AREA_SCORE = 3
 # Penalties
 BYA_PENALTY = 4
 AREA_TO_AREA_PENALTY = 10
-OVERLAP_BUILDINGS_PENALTY = 10
-OVERLAP_BUILDING_SITE_PENALTY = 4
 
 
 class Building(object):
@@ -48,7 +49,6 @@ def _calculate_total_area(buildings):
             )
         )
     )
-
 
 
 def _calculate_score(buildings, buildings_raster):
