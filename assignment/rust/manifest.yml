@@ -1,1 +1,37 @@
-# Add the kubernetes deployment configuration here
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: # add service name here
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: # add service name here
+  template:
+    metadata:
+      labels:
+        app: # add service name here
+    spec:
+      containers:
+        - name: # add service name here
+          resources:
+            limits:
+              cpu: 200m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          image: # add docker image name here
+          ports:
+            - containerPort: # add container port here
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: # add service name here
+spec:
+  selector:
+    app: # add service name here
+  ports:
+    - protocol: TCP
+      port: # add container port here
