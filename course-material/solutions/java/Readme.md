@@ -25,5 +25,5 @@ $ docker push havardh/spacemaker-java
 ### Publish to kubernetes
 
 ```
-kubectl apply -f spacemaker-java.yaml
+kubectl apply -f manifest.yaml
 ```

@@ -30,19 +30,3 @@ spec:
   ports:
   - protocol: TCP
     port: 5000
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: spacemaker-python-flask
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /spacemaker-python-flask
-        backend:
-          serviceName: spacemaker-python-flask
-          servicePort: 5000

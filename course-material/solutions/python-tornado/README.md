@@ -61,5 +61,5 @@ $ gcloud container clusters get-credentials abakus --zone europe-west1-b \
 Then apply the kubernetes configuration by running:
 
 ```bash
-$ kubectl apply -f spacemaker-python-tornado.yaml
+$ kubectl apply -f manifest.yaml
 ```
