@@ -12,8 +12,8 @@ class Handler(tornado.web.RequestHandler):
         self.write(
             json.dumps(
                 [
-                    {"x": 0, "y": 0, "dx": 20, "dy": 20, "dz": 20},
-                    {"x": 40, "y": 40, "dx": 20, "dy": 20, "dz": 40},
+                    {"x": 0, "y": 0, "dx": 7, "dy": 6, "dz": 2},
+                    {"x": 20, "y": 40, "dx": 2, "dy": 9, "dz": 9},
                 ]
             )
         )
