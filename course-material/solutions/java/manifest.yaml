@@ -37,19 +37,3 @@ spec:
   ports:
   - protocol: TCP
     port: 8090
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: spacemaker-java
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /spacemaker-java
-        backend:
-          serviceName: spacemaker-java
-          servicePort: 8090

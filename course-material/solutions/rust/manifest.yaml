@@ -30,19 +30,3 @@ spec:
   - protocol: TCP
     port: 3003
   type: NodePort
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: spacemaker-rust
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /spacemaker-rust
-        backend:
-          serviceName: spacemaker-rust
-          servicePort: 3003

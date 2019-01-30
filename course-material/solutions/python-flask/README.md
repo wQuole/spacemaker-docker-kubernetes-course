@@ -59,5 +59,5 @@ $ docker push hakonamdal/spacemaker-python-flask
 Then apply the kubernetes configuration by running:
 
 ```bash
-$ kubectl apply -f spacemaker-python-flask.yaml
+$ kubectl apply -f manifest.yaml
 ```
