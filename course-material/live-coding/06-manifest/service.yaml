@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-server-service
+spec:
+  selector:
+    app:  hello-server-pod-label
+  ports:
+    - protocol: TCP
+      port: 5000

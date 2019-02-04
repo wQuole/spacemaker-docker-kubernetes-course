@@ -72,7 +72,11 @@ app.get("/", async (req, res, next) => {
           return false;
         }
 
-        return { ...deployment, url: `${config.url}/${service.metadata.name}` };
+        return {
+          ...deployment,
+          service: service.metadata.name,
+          url: `${config.url}/${service.metadata.name}`
+        };
       })
       .filter(Boolean);
 
@@ -90,9 +94,9 @@ app.use("/:service", async (req, res, next) => {
       .services(req.params.service)
       .get();
 
-    const target = `http://${body.spec.clusterIP}:${
-      body.spec.ports[0].targetPort
-    }${req.url}`;
+    const target = `http://${body.spec.clusterIP}:${body.spec.ports[0].port}${
+      req.url
+    }`;
 
     proxy.web(req, res, { target });
   } catch (error) {

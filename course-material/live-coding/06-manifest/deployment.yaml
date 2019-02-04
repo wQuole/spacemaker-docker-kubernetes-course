@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-server-pod-label
+  template:
+    metadata:
+      labels:
+        app: hello-server-pod-label
+    spec:
+      containers:
+        - name: hello-server-container
+          resources:
+            limits:
+              cpu: 200m
+              memory: 300Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          image: hakonamdal/hello-server
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
