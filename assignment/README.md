@@ -87,4 +87,4 @@ You can look at it alone on `http://abakus.spacmaker.ai/#/<your-service-name>`
 
 4) Make your Docker build run the minimal number of step for each subsequent builds. Your local installation of Docker includes a cache which it will use to reduce the number of operations it will do. Examples of typical reductions includes; avoid reinstall platform build dependencies on each build, avoid reinstall code dependencies when only code has changed.
 
-5. Configure the resource utilization appropriate for your langauge in the `service.yml` file.
+5. Configure the resource utilization appropriate for your langauge in the `manifest.yml` file.
