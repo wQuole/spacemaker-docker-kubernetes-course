@@ -1,8 +1,8 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spacemaker-tile
+  namespace: kube-system
 spec:
   replicas: 1
   selector:
@@ -14,34 +14,36 @@ spec:
         app: spacemaker-tile
     spec:
       containers:
-      - name: spacemaker-tile
-        image: havardh/spacemaker-tile
-        ports:
-        - containerPort: 80
+        - name: spacemaker-tile
+          image: havardh/spacemaker-tile
+          ports:
+            - containerPort: 80
 ---
 kind: Service
 apiVersion: v1
 metadata:
   name: spacemaker-tile
+  namespace: kube-system
 spec:
   selector:
     app: spacemaker-tile
   ports:
-  - protocol: TCP
-    port: 80
+    - protocol: TCP
+      port: 80
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: spacemaker-tile
+  namespace: kube-system
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - http:
-      paths:
-      - path: /
-        backend:
-          serviceName: spacemaker-tile
-          servicePort: 80
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: spacemaker-tile
+              servicePort: 80
