@@ -72,14 +72,14 @@ These steps should be done in `manifest.yml` in your server directory.
 3. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
 
 You should now be able to see your solution on http://abakus.spacemaker.ai
-You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
+You can look at it alone on `http://abakus.spacmaker.ai/#/<your-service-name>`
 
 #### Optional assignments
 
 1. Update the server to place the buildings in a fixed, but personalized layout.
 
 2. Write an algorithm for optimizing the placement of the buildings.
-   You can look at the readme of the [`analysis-service`](../platform-services/analysis-service)
+   You can look at the readme of the [`analysis-service`](../course-material/platform-services/analysis-service)
    for the rules which your solution is evaluated based on. Try to optimize for
    these criteria.
 
@@ -87,4 +87,4 @@ You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
 
 4) Make your Docker build run the minimal number of step for each subsequent builds. Your local installation of Docker includes a cache which it will use to reduce the number of operations it will do. Examples of typical reductions includes; avoid reinstall platform build dependencies on each build, avoid reinstall code dependencies when only code has changed.
 
-5. Configure the resource utilization appropriate for your langauge in the `service.yml` file.
+5. Configure the resource utilization appropriate for your langauge in the `manifest.yml` file.
