@@ -72,14 +72,14 @@ These steps should be done in `manifest.yml` in your server directory.
 3. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
 
 You should now be able to see your solution on http://abakus.spacemaker.ai
-You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
+You can look at it alone on `http://abakus.spacmaker.ai/#/<your-service-name>`
 
 #### Optional assignments
 
 1. Update the server to place the buildings in a fixed, but personalized layout.
 
 2. Write an algorithm for optimizing the placement of the buildings.
-   You can look at the readme of the [`analysis-service`](../platform-services/analysis-service)
+   You can look at the readme of the [`analysis-service`](../course-material/platform-services/analysis-service)
    for the rules which your solution is evaluated based on. Try to optimize for
    these criteria.
 
