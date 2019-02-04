@@ -65,14 +65,11 @@ starting.
 
 These steps should be done in `manifest.yml` in your server directory.
 
-1. Pick a `path` for your application. It will be mounted on
-   abakus.spacemaker.ai/<your-path>
+1. Add a Deployment `kind: Deployment`
 
-2. Add a Deployment `kind: Deployment`
+2. Add a Service `kind: Service`
 
-3. Add a Service `kind: Service`
-
-4. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
+3. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
 
 You should now be able to see your solution on http://abakus.spacemaker.ai
 You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
