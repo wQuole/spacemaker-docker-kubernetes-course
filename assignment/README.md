@@ -72,9 +72,7 @@ These steps should be done in `manifest.yml` in your server directory.
 
 3. Add a Service `kind: Service`
 
-4. Add an Ingress `kind: Ingress`
-
-5. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
+4. Deploy the service to Kubernetes `kubectl apply -f manifest.yml`
 
 You should now be able to see your solution on http://abakus.spacemaker.ai
 You can look at it alone on http://abakus.spacmaker.ai/#/<your-path>
