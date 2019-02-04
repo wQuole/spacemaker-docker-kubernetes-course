@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spacemaker-java
+  name: spacemaker-java-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spacemaker-java
+      app: spacemaker-java-pod
   template:
     metadata:
       labels:
-        app: spacemaker-java
+        app: spacemaker-java-pod
     spec:
       containers:
-      - name: spacemaker-java
+      - name: spacemaker-java-container
         resources:
           limits:
             cpu: 200m
@@ -30,10 +30,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-java
+  name: spacemaker-java-service
 spec:
   selector:
-    app: spacemaker-java
+    app: spacemaker-java-pod
   ports:
   - protocol: TCP
     port: 8090

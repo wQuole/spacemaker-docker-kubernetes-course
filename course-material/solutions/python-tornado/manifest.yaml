@@ -2,19 +2,19 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: spacemaker-python-tornado
+  name: spacemaker-python-tornado-deployment
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: spacemaker-python-tornado
+      app: spacemaker-python-tornado-pod
   template:
     metadata:
       labels:
-        app: spacemaker-python-tornado
+        app: spacemaker-python-tornado-pod
     spec:
       containers:
-      - name: spacemaker-python-tornado
+      - name: spacemaker-python-tornado-container
         image: hakonamdal/spacemaker-python-tornado
         imagePullPolicy: Always
         ports:
@@ -23,10 +23,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-python-tornado
+  name: spacemaker-python-tornado-service
 spec:
   selector:
-    app: spacemaker-python-tornado
+    app: spacemaker-python-tornado-pod
   ports:
   - protocol: TCP
     port: 8888

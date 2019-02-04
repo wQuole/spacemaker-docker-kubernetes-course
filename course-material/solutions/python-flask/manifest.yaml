@@ -2,19 +2,19 @@
 apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: spacemaker-python-flask
+  name: spacemaker-python-flask-deployment
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: spacemaker-python-flask
+      app: spacemaker-python-flask-pod
   template:
     metadata:
       labels:
-        app: spacemaker-python-flask
+        app: spacemaker-python-flask-pod
     spec:
       containers:
-      - name: spacemaker-python-flask
+      - name: spacemaker-python-flask-container
         image: hakonamdal/spacemaker-python-flask
         imagePullPolicy: Always
         ports:
@@ -23,10 +23,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-python-flask
+  name: spacemaker-python-flask-service
 spec:
   selector:
-    app: spacemaker-python-flask
+    app: spacemaker-python-flask-pod
   ports:
   - protocol: TCP
     port: 5000

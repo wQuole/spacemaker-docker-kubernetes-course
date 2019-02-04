@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spacemaker-example-service-node
+  name: spacemaker-node-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spacemaker-example-service-node
+      app: spacemaker-node-pod
   template:
     metadata:
       labels:
-        app: spacemaker-example-service-node
+        app: spacemaker-node-pod
     spec:
       containers:
-      - name: spacemaker-example-service-node
+      - name: spacemaker-node-container
         resources:
           limits:
             cpu: 200m
@@ -29,10 +29,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-example-service-node
+  name: spacemaker-node-service
 spec:
   selector:
-    app: spacemaker-example-service-node
+    app: spacemaker-node-pod
   ports:
   - protocol: TCP
     port: 3000

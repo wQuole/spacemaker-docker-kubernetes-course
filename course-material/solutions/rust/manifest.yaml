@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spacemaker-rust
+  name: spacemaker-rust-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spacemaker-rust
+      app: spacemaker-rust-pod
   template:
     metadata:
       labels:
-        app: spacemaker-rust
+        app: spacemaker-rust-pod
     spec:
       containers:
-      - name: spacemaker-rust
+      - name: spacemaker-rust-container
         image: havardh/spacemaker-rust
         ports:
         - containerPort: 3003
@@ -22,10 +22,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: spacemaker-rust
+  name: spacemaker-rust-service
 spec:
   selector:
-    app: spacemaker-rust
+    app: spacemaker-rust-pod
   ports:
   - protocol: TCP
     port: 3003
