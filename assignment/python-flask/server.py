@@ -9,10 +9,14 @@ def get_buildings():
     app.logger.info("Request received")
     return json.dumps(
         [
-            {"x": randint(0, 10), "y": randint(0, 10),
-             "dx": 5, "dy": 5, "dz": 5},
-            {"x": randint(20, 30), "y": randint(20, 30),
-             "dx": 5, "dy": 5, "dz": 5},
+            {"x": 0, "y": 30,
+             "dx": 33, "dy": 33, "dz": 3},
+
+            {"x": 31, "y": 61,
+             "dx": 3, "dy": 33, "dz": 3},
+
+            {"x": 62, "y": 92,
+             "dx": 33, "dy": 33, "dz": 3}
         ]
     )
 

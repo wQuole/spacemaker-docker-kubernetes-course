@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: # add deployment name here
+  name: kvaalenetes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: # add pod label here
+      app: kvaalepod
   template:
     metadata:
       labels:
-        app: # add pod label here
+        app: kvaalepod
     spec:
       containers:
-        - name: # add container name here
+        - name: kvaaleteiner
           resources:
             limits:
               cpu: 200m
@@ -21,18 +21,18 @@ spec:
             requests:
               cpu: 10m
               memory: 50Mi
-          image: # add docker image name here
+          image: wkvaale/python-flask
           imagePullPolicy: Always
           ports:
-            - containerPort: # add container port here
+            - containerPort: 5000
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: # add service name here
+  name: kvaaleservice
 spec:
   selector:
-    app: # add pod label here
+    app: kvaalepod
   ports:
     - protocol: TCP
-      port: # add container port here
+      port: 5000
